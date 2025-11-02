@@ -38,7 +38,7 @@ const CommentItem = ({ comment, textDirection, t, onCommentDeleted }) => {
 
     try {
       const response = await fetch(
-        `http://localhost:3000/api/comments/${comment.id}`,
+        `https://adlambackend-production.up.railway.app/api/comments/${comment.id}`,
         {
           method: 'DELETE',
           headers: {

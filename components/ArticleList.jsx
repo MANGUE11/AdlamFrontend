@@ -120,11 +120,14 @@ const AuthProvider = ({ children }) => {
     setIsLoading(true)
     setError(null)
     try {
-      const response = await fetch('http://localhost:3000/api/auth/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password }),
-      })
+      const response = await fetch(
+        'https://adlambackend-production.up.railway.app/api/auth/login',
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, password }),
+        }
+      )
       if (!response.ok) {
         const errData = await response.json()
         throw new Error(
@@ -215,7 +218,7 @@ const ConfirmModal = ({ message, onConfirm, onCancel }) => (
   </div>
 )
 
-const API_BASE_URL = 'http://localhost:3000/api'
+const API_BASE_URL = 'https://adlambackend-production.up.railway.app/api'
 
 // Composant de modal pour l'édition d'article
 const EditArticleModal = ({ article, onClose, onUpdate }) => {

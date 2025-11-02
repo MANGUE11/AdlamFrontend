@@ -23,7 +23,7 @@ const ArticlePage = () => {
       try {
         // 1. Récupération de l'article
         const articleResponse = await fetch(
-          `http://localhost:3000/api/articles/${id}`
+          `https://adlambackend-production.up.railway.app/api/articles/${id}`
         )
         if (!articleResponse.ok) {
           throw new Error(
@@ -37,7 +37,7 @@ const ArticlePage = () => {
         setArticle(articleData) // 2. Récupération des commentaires
 
         const commentsResponse = await fetch(
-          `http://localhost:3000/api/articles/${id}/comments`
+          `https://adlambackend-production.up.railway.app/api/articles/${id}/comments`
         )
         if (!commentsResponse.ok) {
           console.error('Erreur lors de la récupération des commentaires.')

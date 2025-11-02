@@ -34,13 +34,16 @@ const CreateArticleForm = () => {
         const formData = new FormData()
         formData.append('image', coverImage)
 
-        const uploadResponse = await fetch('http://localhost:3000/api/upload', {
-          method: 'POST',
-          headers: {
-            'x-auth-token': token,
-          },
-          body: formData,
-        })
+        const uploadResponse = await fetch(
+          'https://adlambackend-production.up.railway.app/api/upload',
+          {
+            method: 'POST',
+            headers: {
+              'x-auth-token': token,
+            },
+            body: formData,
+          }
+        )
 
         const uploadResult = await uploadResponse.json()
         if (!uploadResponse.ok) {
@@ -63,7 +66,7 @@ const CreateArticleForm = () => {
       }
 
       const articleResponse = await fetch(
-        'http://localhost:3000/api/articles',
+        'https://adlambackend-production.up.railway.app/api/articles',
         {
           method: 'POST',
           headers: {

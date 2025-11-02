@@ -9,7 +9,9 @@ export const useAuth = () => {
 }
 
 // URL de votre API de connexion
-const LOGIN_API_URL = 'http://localhost:3000/api/auth/login'
+// const LOGIN_API_URL = 'http://localhost:3000/api/auth/login'
+const LOGIN_API_URL =
+  'https://adlambackend-production.up.railway.app/api/auth/login'
 
 // Composant fournisseur du contexte d'authentification
 export const AuthProvider = ({ children }) => {
