@@ -1,0 +1,74 @@
+/* src/components/HeroSection/HeroSection.css */
+.hero-container {
+  position: relative;
+  background-image: url('https://placehold.co/1200x800/2c3e50/ffffff?text=Votre+Image+de+Fond');
+  background-size: cover;
+  background-position: center;
+  height: 600px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  color: white;
+  text-align: right;
+  padding: 0 50px;
+}
+
+.hero-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 10;
+  max-width: 600px;
+}
+
+.hero-text-box {
+  background-color: rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.hero-title-adlam {
+  font-family: 'Adlam', sans-serif;
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.hero-text-adlam {
+  font-family: 'Adlam', sans-serif;
+  font-size: 1.2rem;
+  line-height: 1.6;
+  direction: rtl;
+  text-align: right;
+}
+
+.hero-button-adlam {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-family: 'Adlam', sans-serif;
+  font-size: 1.2rem;
+  padding: 15px 30px;
+  background-color: #f3e5b3;
+  color: #2c3e50;
+  text-decoration: none;
+  border-radius: 50px;
+  margin-top: 1rem;
+  transition: background-color 0.3s ease;
+  direction: rtl;
+  border: none;
+  cursor: pointer;
+}
+
+.hero-button-adlam:hover {
+  background-color: #e6d3a8;
+}
