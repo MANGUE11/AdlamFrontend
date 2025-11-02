@@ -19,11 +19,20 @@ const UserList = () => {
   const fetchUsers = async () => {
     setLoading(true)
     setError(null)
+
+    if (!token) {
+      setError('Token manquant. Veuillez vous connecter.')
+      setLoading(false)
+      return
+    }
+
     try {
       const response = await fetch(
         'https://adlambackend-production.up.railway.app/api/users',
         {
+          method: 'GET',
           headers: {
+            'Content-Type': 'application/json',
             'x-auth-token': token,
           },
         }
