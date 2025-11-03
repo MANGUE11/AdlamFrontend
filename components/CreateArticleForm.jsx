@@ -28,8 +28,9 @@ const CreateArticleForm = () => {
     console.log('Token:', token)
 
     try {
-      let coverImageUrl = null // Étape 1: Uploader l'image si elle existe
+      let coverImageUrl = null
 
+      // Étape 1: upload image
       if (coverImage) {
         const formData = new FormData()
         formData.append('image', coverImage)
@@ -52,13 +53,13 @@ const CreateArticleForm = () => {
           )
         }
         coverImageUrl = uploadResult.imageUrl
-      } // Étape 2: Créer l'article avec l'URL de l'image
+      }
 
+      // Étape 2: création article
       const articleData = {
-        // Nouveaux champs de titre
         title_adlam: titleAdlam,
         title_french: titleFrench,
-        title_english: titleEnglish, // Champs de contenu existants
+        title_english: titleEnglish,
         content_adlam: contentAdlam,
         content_french: contentFrench,
         content_english: contentEnglish,
@@ -71,7 +72,7 @@ const CreateArticleForm = () => {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            'x-auth-token': token,
+            Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify(articleData),
         }
@@ -85,7 +86,7 @@ const CreateArticleForm = () => {
       }
 
       setMessage('Article créé avec succès !')
-      setMessageType('success') // Réinitialiser le formulaire
+      setMessageType('success')
       setTitleAdlam('')
       setTitleFrench('')
       setTitleEnglish('')

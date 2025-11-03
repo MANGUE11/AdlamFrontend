@@ -77,7 +77,7 @@ const UserList = () => {
           method: 'PATCH',
           headers: {
             'Content-Type': 'application/json',
-            'x-auth-token': token,
+            Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify({ newRole }),
         }
@@ -126,7 +126,7 @@ const UserList = () => {
           {
             method: 'DELETE',
             headers: {
-              'x-auth-token': token,
+              Authorization: `Bearer ${token}`,
             },
           }
         )

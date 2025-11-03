@@ -286,7 +286,7 @@ const EditArticleModal = ({ article, onClose, onUpdate }) => {
       const response = await fetch(`${API_BASE_URL}/upload`, {
         method: 'POST',
         headers: {
-          'x-auth-token': token,
+          Authorization: `Bearer ${token}`,
         },
         body: formData,
       })
@@ -322,7 +322,7 @@ const EditArticleModal = ({ article, onClose, onUpdate }) => {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
-          'x-auth-token': token,
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({ ...form, coverImageUrl: newImageUrl }),
       })
@@ -496,7 +496,7 @@ const ArticleList = () => {
     try {
       const response = await fetch(`${API_BASE_URL}/articles`, {
         headers: {
-          'x-auth-token': token,
+          Authorization: `Bearer ${token}`,
         },
       })
 
@@ -535,7 +535,7 @@ const ArticleList = () => {
         {
           method: 'DELETE',
           headers: {
-            'x-auth-token': token,
+            Authorization: `Bearer ${token}`,
           },
         }
       )
