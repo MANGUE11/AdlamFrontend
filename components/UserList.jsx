@@ -11,7 +11,7 @@ const UserList = () => {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
   const [message, setMessage] = useState('')
-  const [messageType, setMessageType] = useState('') // États pour la pagination
+  const [messageType, setMessageType] = useState('')
 
   const [currentPage, setCurrentPage] = useState(1)
   const USERS_PER_PAGE = 15 // Nombre d'utilisateurs par page // Fonction pour récupérer la liste des utilisateurs
@@ -162,8 +162,12 @@ const UserList = () => {
   if (error) return <p className='text-red-600'>{error}</p>
 
   return (
-    <div>
-      {' '}
+    <div className='p-6 bg-white rounded-2xl shadow-lg'>
+           {' '}
+      <h2 className='text-2xl font-bold text-[#2c3159] mb-6'>
+                {currentLang.title || 'Liste des utilisateurs'}     {' '}
+      </h2>
+           {' '}
       {message && (
         <div
           className={`p-4 rounded-xl font-medium mb-4 ${
@@ -172,68 +176,92 @@ const UserList = () => {
               : 'bg-red-100 text-red-700'
           }`}
         >
-          {message}{' '}
+                    {message}       {' '}
         </div>
-      )}{' '}
-      <table className='min-w-full bg-white rounded-xl shadow-md overflow-hidden'>
-        {' '}
-        <thead className='bg-gray-200'>
-          {' '}
-          <tr>
-            {' '}
-            <th className='py-3 px-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider'>
-              Nom{' '}
-            </th>{' '}
-            <th className='py-3 px-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider'>
-              Email{' '}
-            </th>{' '}
-            <th className='py-3 px-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider'>
-              Rôle{' '}
-            </th>{' '}
-            <th className='py-3 px-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider'>
-              Actions{' '}
-            </th>{' '}
-          </tr>{' '}
-        </thead>{' '}
-        <tbody>
-          {' '}
-          {currentUsers.map((user) => (
-            <tr
-              key={user.id}
-              className='border-b border-gray-200 hover:bg-gray-50'
-            >
-              {' '}
-              <td className='py-3 px-4 text-sm text-gray-800'>
-                {user.name}
-              </td>{' '}
-              <td className='py-3 px-4 text-sm text-gray-800'>{user.email}</td>{' '}
-              <td className='py-3 px-4 text-sm text-gray-800'>
-                {' '}
-                <select
-                  value={user.role}
-                  onChange={(e) => handleRoleChange(user.id, e.target.value)}
-                  className='bg-white border border-gray-300 rounded-lg p-1.5 focus:outline-none focus:ring-2 focus:ring-[#2c3159] transition-all duration-300'
-                >
-                  <option value='visitor'>Visitor</option>
-                  <option value='admin'>Admin</option>{' '}
-                </select>{' '}
-              </td>{' '}
-              <td className='py-3 px-4 text-sm'>
-                {' '}
-                <button
-                  onClick={() => handleDelete(user.id)}
-                  className='bg-red-500 text-white font-semibold py-1 px-3 rounded-full hover:bg-red-600 transition-all duration-300'
-                >
-                  Supprimer{' '}
-                </button>{' '}
-              </td>{' '}
+      )}
+      {/* Conteneur pour gérer le débordement horizontal sur les petits écrans */}
+           {' '}
+      <div className='overflow-x-auto'>
+               {' '}
+        <table className='min-w-full bg-white rounded-xl shadow-md overflow-hidden'>
+                   {' '}
+          <thead className='bg-gray-200'>
+                       {' '}
+            <tr>
+                           {' '}
+              <th className='py-3 px-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider min-w-[100px]'>
+                                Nom              {' '}
+              </th>
+                           {' '}
+              <th className='py-3 px-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider min-w-[150px]'>
+                                Email              {' '}
+              </th>
+                           {' '}
+              <th className='py-3 px-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider min-w-[100px]'>
+                                Rôle              {' '}
+              </th>
+                           {' '}
+              <th className='py-3 px-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider min-w-[150px]'>
+                                Actions              {' '}
+              </th>
+                         {' '}
             </tr>
-          ))}{' '}
-        </tbody>{' '}
-      </table>{' '}
+                     {' '}
+          </thead>
+                   {' '}
+          <tbody>
+                       {' '}
+            {currentUsers.map((user) => (
+              <tr
+                key={user.id}
+                className='border-b border-gray-200 hover:bg-gray-50'
+              >
+                               {' '}
+                <td className='py-3 px-4 text-sm text-gray-800'>
+                                    {user.name}               {' '}
+                </td>
+                               {' '}
+                <td className='py-3 px-4 text-sm text-gray-800'>
+                  {user.email}
+                </td>
+                               {' '}
+                <td className='py-3 px-4 text-sm text-gray-800'>
+                                   {' '}
+                  <select
+                    value={user.role}
+                    onChange={(e) => handleRoleChange(user.id, e.target.value)}
+                    className='bg-white border border-gray-300 rounded-lg p-1.5 focus:outline-none focus:ring-2 focus:ring-[#2c3159] transition-all duration-300'
+                  >
+                                        <option value='visitor'>Visitor</option>
+                                        <option value='admin'>Admin</option>   
+                                 {' '}
+                  </select>
+                                 {' '}
+                </td>
+                               {' '}
+                <td className='py-3 px-4 text-sm'>
+                                   {' '}
+                  <button
+                    onClick={() => handleDelete(user.id)}
+                    className='bg-red-500 text-white font-semibold py-1 px-3 rounded-full hover:bg-red-600 transition-all duration-300'
+                  >
+                                        Supprimer                  {' '}
+                  </button>
+                                 {' '}
+                </td>
+                             {' '}
+              </tr>
+            ))}
+                     {' '}
+          </tbody>
+                 {' '}
+        </table>
+             {' '}
+      </div>
+            {/* Pagination */}     {' '}
       {users.length > USERS_PER_PAGE && (
         <div className='flex justify-center space-x-2 mt-6'>
-          {' '}
+                   {' '}
           {Array.from({ length: totalPages }, (_, i) => (
             <button
               key={i + 1}
@@ -244,11 +272,13 @@ const UserList = () => {
                   : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
               }`}
             >
-              {i + 1}{' '}
+                            {i + 1}           {' '}
             </button>
-          ))}{' '}
+          ))}
+                 {' '}
         </div>
-      )}{' '}
+      )}
+         {' '}
     </div>
   )
 }

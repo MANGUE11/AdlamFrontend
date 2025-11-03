@@ -53,14 +53,17 @@ const UserProfile = () => {
     }
     console.log('Token being sent:', token)
     try {
-      const response = await fetch('http://localhost:3000/api/users/profile', {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          'x-auth-token': token,
-        },
-        body: JSON.stringify(updateData),
-      })
+      const response = await fetch(
+        'https://adlambackend-production.up.railway.app/api/users/profile',
+        {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(updateData),
+        }
+      )
 
       const result = await response.json()
 

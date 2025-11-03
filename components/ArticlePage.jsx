@@ -7,16 +7,22 @@ import CommentsList from '../components/CommentsList'
 
 const ArticlePage = () => {
   const { id } = useParams()
-  const { translations, selectedLanguage, textDirection } = useLanguage()
-  const currentLang = translations[selectedLanguage] // Accès aux traductions pour les titres/messages
+  const { translations, selectedLanguage, textDirection } = useLanguage() // Accès direct aux traductions
+  const pageLang = translations[selectedLanguage].articlePage || {}
 
   const [article, setArticle] = useState(null)
-  const [comments, setComments] = useState([]) // État pour stocker les commentaires
+  const [comments, setComments] = useState([])
   const [loading, setLoading] = useState(true)
-  const [error, setError] = useState(null)
+  const [error, setError] = useState(null) // Fonction utilitaire pour obtenir la traduction d'une clé (version simplifiée)
 
-  // Fonction utilitaire pour obtenir la traduction d'une clé
-  const t = (key, fallback) => currentLang?.[key] || fallback // Fonction pour récupérer l'article ET ses commentaires
+  const t = (key, fallback) => pageLang[key] || fallback
+
+  // Fonction pour déterminer la locale de formatage de date/heure
+  const getLocale = (lang) => {
+    if (lang === 'adlam') return 'ff-Adlm' // Locale Adlam/Pulaar
+    if (lang === 'en') return 'en-US'
+    return 'fr-FR'
+  } // Fonction pour récupérer l'article ET ses commentaires
 
   useEffect(() => {
     const fetchArticleAndComments = async () => {
@@ -28,7 +34,7 @@ const ArticlePage = () => {
         if (!articleResponse.ok) {
           throw new Error(
             t(
-              'article_error_not_found',
+              'errorNotFound', // Clé traduite
               'Erreur de réseau ou article non trouvé.'
             )
           )
@@ -56,7 +62,7 @@ const ArticlePage = () => {
     if (id) {
       fetchArticleAndComments()
     }
-  }, [id, selectedLanguage]) // Fonction de rappel pour mettre à jour les commentaires après une soumission réussie
+  }, [id, selectedLanguage])
 
   const handleCommentAdded = (newComment) => {
     setComments((prevComments) => [...prevComments, newComment])
@@ -65,7 +71,7 @@ const ArticlePage = () => {
   if (loading) {
     return (
       <div className='text-center py-16'>
-        {t('article_loading', "Chargement de l'article...")}
+        {t('loading', "Chargement de l'article...")} // Utilisation de t(){' '}
       </div>
     )
   }
@@ -73,7 +79,7 @@ const ArticlePage = () => {
   if (error) {
     return (
       <div className='text-center py-16 text-red-500'>
-        {t('article_error_prefix', 'Erreur')} : {error}
+        {t('errorPrefix', 'Erreur')} : {error} // Utilisation de t(){' '}
       </div>
     )
   }
@@ -81,11 +87,12 @@ const ArticlePage = () => {
   if (!article) {
     return (
       <div className='text-center py-16'>
-        {t('article_not_found', 'Article non trouvé.')}
+        {t('notFound', 'Article non trouvé.')} // Utilisation de t(){' '}
       </div>
     )
-  } // Fonctions de sélection de langue inchangées
+  }
 
+  // Fonctions de sélection de langue pour le contenu de l'article (inchangées)
   const getTitle = () => {
     switch (selectedLanguage) {
       case 'adlam':
@@ -110,14 +117,17 @@ const ArticlePage = () => {
       default:
         return article.content_french
     }
-  }
+  } // NOUVEAU FORMATAGE DE DATE AVEC LOCALE ADLAM
 
   const formattedDate = new Date(article.createdAt).toLocaleDateString(
-    selectedLanguage,
+    getLocale(selectedLanguage), // Utilisation de 'ff-Adlm' si Adlam
     {
       year: 'numeric',
       month: 'long',
       day: 'numeric',
+      // Pour inclure l'heure, décommentez ceci :
+      // hour: '2-digit',
+      // minute: '2-digit'
     }
   )
 
@@ -132,11 +142,11 @@ const ArticlePage = () => {
         <div className='relative z-10 flex flex-col items-center justify-center h-full px-4 text-center text-white'>
           {' '}
           <h1 className='text-3xl md:text-5xl font-bold mb-4'>
-            {getTitle()}
+            {getTitle()}{' '}
           </h1>{' '}
           <p className='text-xl md:text-2xl font-semibold'>
-            {t('article_by', 'Par')} {article.author.name}{' '}
-            {t('article_on', 'le')} {formattedDate}{' '}
+            {t('by', 'Par')} {article.author.name} {t('on', 'le')}{' '}
+            {formattedDate}{' '}
           </p>{' '}
         </div>{' '}
       </div>
@@ -159,12 +169,11 @@ const ArticlePage = () => {
             className='text-3xl font-bold mb-8 text-gray-900'
             style={{ direction: textDirection }}
           >
-            {t('comments_title', 'Commentaires')} ({comments.length}){' '}
+            {t('commentsTitle', 'Commentaires')} ({comments.length}){' '}
           </h2>
           {/* 1. Formulaire de soumission de commentaire */}{' '}
           <CommentForm articleId={id} onCommentAdded={handleCommentAdded} />
           {/* 2. Liste des commentaires existants */}{' '}
-          {/* ⚠️ Ajustement Critique : Passage de setComments pour la suppression Admin */}{' '}
           <CommentsList comments={comments} setComments={setComments} />{' '}
         </div>{' '}
       </div>{' '}

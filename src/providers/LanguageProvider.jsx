@@ -209,6 +209,22 @@ const translations = {
       },
     },
 
+    commentsList: {
+      // Liste vide
+      none: 'Soyez le premier à commenter cet article !',
+
+      // Suppression Admin (CommentItem)
+      confirmDelete: 'Êtes-vous sûr de vouloir supprimer ce commentaire ?',
+      deleteError: 'Erreur lors de la suppression:',
+      deleteConnectionError:
+        'Erreur de connexion au serveur lors de la suppression.',
+      deleteButtonTitle: 'Supprimer ce commentaire',
+
+      // Date/Locale (pas un message, mais une indication pour le formatage)
+      dateLocale: 'fr-FR',
+    },
+    // ...
+
     contactForm: {
       // Section gauche (description)
       title: 'Contactez-nous',
@@ -224,6 +240,30 @@ const translations = {
       labelMessage: 'Votre Message',
       buttonSubmit: 'Envoyer',
     },
+
+    commentForm: {
+      // État non authentifié
+      loginRequiredTitle: 'Connexion requise',
+      loginRequiredMessage: 'Veuillez vous ',
+      loginLinkText: 'connecter',
+      loginRequiredMessageEnd: ' pour laisser un commentaire.',
+
+      // Formulaire de soumission
+      label: 'Écrivez votre commentaire :',
+      placeholder: 'Votre commentaire...',
+
+      // Messages d'état
+      errorEmpty: 'Le commentaire ne peut pas être vide.',
+      errorAuthMissing: "Erreur d'authentification: jeton manquant.",
+      errorApi: 'Erreur lors de la soumission du commentaire.',
+      errorConnection: 'La connexion au serveur a échoué.',
+      success: 'Commentaire envoyé avec succès !',
+
+      // Bouton
+      buttonSubmit: 'Envoyer le commentaire',
+      buttonLoading: 'Envoi...',
+    },
+    // ...
 
     about: {
       smallTitle: 'Notre Histoire',
@@ -493,6 +533,21 @@ const translations = {
       },
     },
 
+    commentsList: {
+      // Liste vide
+      none: '𞤅𞤮𞤳𞥆𞤢𞥄𞤣𞤮 𞤸𞤮𞤲𞥆𞤮 𞤢𞥄𞤥𞤵𞤲 𞤼𞤢𞥄𞤪𞤮𞤼𞤮𞤲 𞤲𞤵𞤤𞤢𞤤 𞤲𞤺𞤢𞤤!', // Sokkaaɗo honno aamun taaroton nulal ngal (Soyez le premier...)
+
+      // Suppression Admin (CommentItem)
+      confirmDelete: '𞤉𞤿𞤢𞤲 𞤮𞤲 𞤲𞤢𞤦𞤭 𞤼𞤵𞤤𞤤𞤭𞤣𞤫𞥅 𞤲𞤵𞤤𞤢𞤤 𞤲𞤺𞤢𞤤?', // Ecan on nabi tullide nulal ngal (Êtes-vous sûr de vouloir supprimer...)
+      deleteError: '𞤖𞤵𞤥𞤨𞤭𞤼𞤢𞤺𞤮𞤤 𞤼𞤵𞤤𞤤𞤭𞤣𞤫𞥅:', // Humpitaagol tullide (Erreur lors de la suppression)
+      deleteConnectionError: '𞤖𞤵𞤥𞤨𞤭𞤼𞤢𞤺𞤮𞤤 𞤲𞤢𞤲𞤣𞤢𞤤 𞤫 𞤧𞤫𞤪𞤾𞤫𞤪 𞤸𞤢𞤳𞥆𞤫 𞤼𞤵𞤤𞤤𞤭𞤣𞤫𞥅.', // Humpitaagol nandal e server hakke tullide (Erreur de connexion au serveur...)
+      deleteButtonTitle: '𞤚𞤵𞤤𞤤𞤭𞤣𞤫𞥅 𞤲𞤵𞤤𞤢𞤤 𞤲𞤺𞤢𞤤', // Tullide nulal ngal (Supprimer ce commentaire)
+
+      // Date/Locale
+      dateLocale: 'ff-Adlm', // Locale Adlam/Pulaar
+    },
+    // ...
+
     contactForm: {
       // Section gauche (description)
       title: "𞤔𞤮𞤳𞥆𞤮𞤲'𞤣𞤭𞤪𞤫𞥅 𞤫 𞤢𞤥𞤫𞤲", // Jokkonɗire e amen (Contactez-nous)
@@ -508,6 +563,30 @@ const translations = {
       labelMessage: '𞤐𞤓𞤂𞤀𞤂 ', // Nulal (Votre Message)
       buttonSubmit: '𞤐𞤢𞤩𞤵', // Nabu (Envoyer)
     },
+
+    commentForm: {
+      // État non authentifié
+      loginRequiredTitle: '𞤅𞤮𞤳𞥆𞤢𞥄𞤺𞤮𞤤 𞤲𞤮𞤣𞥆𞤢𞥄𞤥𞤢', // Sokkaagol noɗɗaama (Connexion requise)
+      loginRequiredMessage: '𞤍𞤮𞥅𞤤𞤮 𞤮𞤲 𞤢𞥄𞤥𞤵𞤲 𞤬𞤭𞥅𞤼𞤭𞤣𞤫𞥅 𞤳𞤢', // Ƴoole on aamun fiitide kaa (Veuillez vous)
+      loginLinkText: '𞤳𞤮𞤲𞥆𞤫𞥅𞤣𞤭', // konneeɗi (connecter)
+      loginRequiredMessageEnd: ' 𞤬𞤭𞥅 𞤮𞤲 𞤢𞥄𞤥𞤵𞤲 𞤼𞤢𞥄𞤪𞤮𞤼𞤮𞤲 𞤲𞤵𞤤𞤢𞤤.', // fi on aamun taaroton nulal (pour laisser un commentaire)
+
+      // Formulaire de soumission
+      label: '𞤏𞤭𞤲𞤣𞤵 𞤣𞤫𞤱𞤼𞤢𞤲𞤣𞤫', // Jango nulal makko on (Écrivez votre commentaire)
+      placeholder: '𞤁𞤫𞤱𞤼𞤢𞤲𞤣𞤫 𞤥𞤢𞥄...', // Nulal makko (Votre commentaire)
+
+      // Messages d'état
+      errorEmpty: '𞤐𞤵𞤤𞤢𞤤 𞤲𞤺𞤢𞤤 𞤬𞤮𞤼𞤢𞥄 𞤱𞤮𞤲𞤣𞤫 𞤥𞤢𞤪𞤢.', // Nulal ngal fotaa wonde mara (Le commentaire ne peut pas être vide)
+      errorAuthMissing: '𞤖𞤵𞤥𞤨𞤭𞤼𞤢𞤺𞤮𞤤 𞤤𞤫𞤴𞤣𞤭𞤲𞤭: 𞤼𞤮𞤳𞤮𞤲 𞤥𞤢𞤲𞤳𞤢.', // Humpitaagol leydini: tokon manca (Erreur d'authentification: jeton manquant)
+      errorApi: '𞤖𞤵𞤥𞤨𞤭𞤼𞤢𞤺𞤮𞤤 𞤼𞤭𞤥𞥆𞤢𞥄𞤣𞤫 𞤲𞤵𞤤𞤢𞤤.', // Humpitaagol timmaaɗe nulal (Erreur lors de la soumission)
+      errorConnection: '𞤐𞤢𞤲𞤣𞤢𞤤 𞤫 𞤧𞤫𞤪𞤾𞤫𞤪 𞤬𞤢𞥄𞤤𞤭.', // Nandal e server faali (Connexion au serveur a échoué)
+      success: '𞤐𞤵𞤤𞤢𞤤 𞤱𞤮𞤲𞤭 𞤼𞤭𞤥𞥆𞤢𞥄𞤥𞤢 𞤫 𞤩𞤫𞤧 𞤥𞤢𞤳𞥆𞤮!', // Nulal woni timmaama e bes makko (Commentaire envoyé avec succès)
+
+      // Bouton
+      buttonSubmit: '𞤐𞤫𞤤𞤣𞤵 𞤣𞤫𞤱𞤼𞤢𞤲𞤣𞤫 𞤲𞤣𞤫𞤲  ', // Nabu nulal ngal (Envoyer le commentaire)
+      buttonLoading: '𞤊𞤫𞤣𞥆𞤫 𞤱𞤮𞤲𞤭...', // Feɗɗe woni (Envoi...)
+    },
+    // ...
 
     about: {
       smallTitle: '𞤑𞤫𞤪𞤫𞥅𞤶𞤫', // Traduction : Notre Histoire
@@ -708,6 +787,30 @@ const translations = {
       button: 'Read more',
     },
 
+    commentForm: {
+      // Unauthenticated state
+      loginRequiredTitle: 'Login Required',
+      loginRequiredMessage: 'Please ',
+      loginLinkText: 'log in',
+      loginRequiredMessageEnd: ' to leave a comment.',
+
+      // Submission form
+      label: 'Write your comment:',
+      placeholder: 'Your comment...',
+
+      // Status Messages
+      errorEmpty: 'Comment cannot be empty.',
+      errorAuthMissing: 'Authentication error: token missing.',
+      errorApi: 'Error submitting comment.',
+      errorConnection: 'Server connection failed.',
+      success: 'Comment successfully submitted!',
+
+      // Button
+      buttonSubmit: 'Submit Comment',
+      buttonLoading: 'Sending...',
+    },
+    // ...
+
     about: {
       smallTitle: 'Our History',
       largeTitle: 'Who Are We? Discover the Association.',
@@ -791,6 +894,21 @@ const translations = {
         ],
       },
     },
+
+    commentsList: {
+      // Empty list
+      none: 'Be the first to comment on this article!',
+
+      // Admin Deletion (CommentItem)
+      confirmDelete: 'Are you sure you want to delete this comment?',
+      deleteError: 'Error during deletion:',
+      deleteConnectionError: 'Server connection error during deletion.',
+      deleteButtonTitle: 'Delete this comment',
+
+      // Date/Locale
+      dateLocale: 'en-US',
+    },
+    // ...
 
     contactForm: {
       // Left Section (Description)
