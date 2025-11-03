@@ -994,7 +994,7 @@ const translations = {
 
 export const LanguageProvider = ({ children }) => {
   // Définir la langue par défaut et la direction du texte
-  const [selectedLanguage, setSelectedLanguage] = useState('fr') // J'ai changé 'adlam' en 'fr' pour que le site s'affiche en français par défaut.
+  const [selectedLanguage, setSelectedLanguage] = useState('adlam') // J'ai changé 'adlam' en 'fr' pour que le site s'affiche en français par défaut.
   const [textDirection, setTextDirection] = useState('ltr') // Mettre à jour la direction du texte en fonction de la langue sélectionnée
 
   useEffect(() => {
