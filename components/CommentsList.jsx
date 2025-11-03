@@ -43,6 +43,7 @@ const CommentItem = ({ comment, textDirection, t, onCommentDeleted }) => {
           method: 'DELETE',
           headers: {
             Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json',
           },
         }
       )

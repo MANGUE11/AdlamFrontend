@@ -20,11 +20,11 @@ const translations = {
     header: {
       menu: [
         { name: 'Accueil', href: '/' },
-        { name: 'À propos', href: '#' },
-        { name: 'Initiation', href: '#' },
-        { name: 'Historique', href: '#' },
+        { name: 'À propos', href: '/a-propos' },
+        { name: 'Initiation', href: '/initiation' },
+        { name: 'Historique', href: '/history-details' },
         { name: 'Articles', href: '/all-articles' },
-        { name: 'Contact', href: '#' },
+        // { name: 'Contact', href: '#' },
       ],
       languageLabel: 'Langue',
       signUp: "S'inscrire",
@@ -310,11 +310,11 @@ const translations = {
     header: {
       menu: [
         { name: '𞤘𞤢𞤤𞥆𞤫', href: '/' },
-        { name: '𞤊𞤭𞥅 𞤸𞤵𞥅𞤱𞤲𞤣𞤫', href: '#' },
-        { name: '𞤊𞤵𞤯𞥆𞤢𞤲𞤣𞤫', href: '#' },
-        { name: '𞤆𞤫𞤰𞥆𞤭𞤲𞤳𞤮', href: '#' },
-        { name: '𞤑𞤵𞤯𞤮𞤤', href: '#' },
-        { name: '𞤔𞤮𞤳𞥆𞤮𞤲𞥋𞤣𞤭𞤪𞤢𞤤', href: '#' },
+        { name: '𞤊𞤭𞥅 𞤸𞤵𞥅𞤱𞤲𞤣𞤫', href: '/a-propos' },
+        { name: '𞤊𞤵𞤯𞥆𞤢𞤲𞤣𞤫', href: '/initiation' },
+        { name: '𞤆𞤫𞤰𞥆𞤭𞤲𞤳𞤮', href: '/history-details' },
+        { name: '𞤑𞤵𞤯𞤮𞤤', href: '/all-articles' },
+        // { name: '𞤔𞤮𞤳𞥆𞤮𞤲𞥋𞤣𞤭𞤪𞤢𞤤', href: '#' },
       ],
       languageLabel: '𞤍𞤫𞤲𞤯𞤫',
       signUp: '𞤖𞤫𞤼𞥆𞤵𞤣𞤫',
@@ -594,11 +594,11 @@ const translations = {
     header: {
       menu: [
         { name: 'Home', href: '/' },
-        { name: 'About', href: '#' },
-        { name: 'Initiation', href: '#' },
+        { name: 'About', href: '/a-propos' },
+        { name: 'Initiation', href: '/initiation' },
         { name: 'History', href: '#' },
         { name: 'Articles', href: '/all-articles' },
-        { name: 'Contact', href: '#' },
+        // { name: 'Contact', href: '#' },
       ],
       languageLabel: 'Language',
       signUp: 'Sign Up',
