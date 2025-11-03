@@ -39,7 +39,7 @@ const CreateArticleForm = () => {
           {
             method: 'POST',
             headers: {
-              'x-auth-token': token,
+              Authorization: `Bearer ${token}`,
             },
             body: formData,
           }
