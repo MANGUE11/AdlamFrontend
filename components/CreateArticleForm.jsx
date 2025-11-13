@@ -126,7 +126,7 @@ const CreateArticleForm = () => {
             htmlFor='title-adlam'
             className='block text-sm font-medium text-gray-700 mb-1'
           >
-            Titre (Adlam){' '}
+            𞤅𞤫𞤪𞤭𞤲𞤣𞤫 𞤆𞤵𞤢𞤤𞤪{' '}
           </label>{' '}
           <input
             type='text'
@@ -143,7 +143,7 @@ const CreateArticleForm = () => {
             htmlFor='title-french'
             className='block text-sm font-medium text-gray-700 mb-1'
           >
-            Titre (Français){' '}
+            𞤅𞤫𞤪𞤭𞤲𞤣𞤫 𞤊𞤢𞤪𞤢𞤲𞤧𞤭{' '}
           </label>{' '}
           <input
             type='text'
@@ -160,7 +160,7 @@ const CreateArticleForm = () => {
             htmlFor='title-english'
             className='block text-sm font-medium text-gray-700 mb-1'
           >
-            Titre (Anglais){' '}
+            𞤅𞤫𞤪𞤭𞤲𞤣𞤫 𞤉𞤲𞤺𞤫𞤤𞤫{' '}
           </label>{' '}
           <input
             type='text'
@@ -178,7 +178,7 @@ const CreateArticleForm = () => {
             htmlFor='content-adlam'
             className='block text-sm font-medium text-gray-700 mb-1'
           >
-            Contenu (Adlam){' '}
+            𞤏𞤢𞤯𞤮𞤪𞤢𞤤 𞤆𞤵𞤤𞤢𞤪{' '}
           </label>{' '}
           <textarea
             id='content-adlam'
@@ -194,7 +194,7 @@ const CreateArticleForm = () => {
             htmlFor='content-french'
             className='block text-sm font-medium text-gray-700 mb-1'
           >
-            Contenu (Français){' '}
+            𞤏𞤢𞤯𞤮𞤪𞤢𞤤 𞤊𞤢𞤪𞤢𞤲𞤧𞤭{' '}
           </label>{' '}
           <textarea
             id='content-french'
@@ -210,7 +210,7 @@ const CreateArticleForm = () => {
             htmlFor='content-english'
             className='block text-sm font-medium text-gray-700 mb-1'
           >
-            Contenu (Anglais){' '}
+            𞤏𞤀𞤯𞤮𞤪𞤢𞤤 𞤉𞤲𞤺𞤫𞤤𞤫{' '}
           </label>{' '}
           <textarea
             id='content-english'
@@ -227,7 +227,7 @@ const CreateArticleForm = () => {
             htmlFor='cover-image'
             className='block text-sm font-medium text-gray-700 mb-1'
           >
-            Image de couverture{' '}
+            𞤐𞤢𞤼𞤢𞤤 𞤦𞤵𞥅𞤥𞤵𞤲𞥋𞤲𞤺𞤢𞤤{' '}
           </label>{' '}
           <input
             type='file'
@@ -245,7 +245,7 @@ const CreateArticleForm = () => {
             className='bg-[#2c3159] text-white font-bold py-3 px-6 rounded-full shadow-lg hover:bg-opacity-90 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed'
             disabled={isLoading}
           >
-            {isLoading ? 'Création en cours...' : "Créer l'article"}{' '}
+            {isLoading ? 'Création en cours...' : '𞤅𞤭𞤲𞤷𞤵 𞤳𞤵𞤯𞤮𞤤'}{' '}
           </button>{' '}
         </div>{' '}
       </form>{' '}

@@ -47,11 +47,10 @@ const Header = () => {
                 <i className='fa-solid fa-phone'></i> +224 123 456 789
               </span>
               <span className='flex items-center gap-1'>
-                <i className='fa-solid fa-location-dot'></i> le nom de la
-                localisation
+                <i className='fa-solid fa-location-dot'></i> 𞤍𞤢𞤤𞤢𞤦𞤢𞥄
               </span>
               <span className='flex items-center gap-1'>
-                <i className='fa-solid fa-envelope'></i> adlam@gmail.com
+                <i className='fa-solid fa-envelope'></i> akweeyo@gmail.com
               </span>
             </div>
             <div className='flex items-center gap-4'>
