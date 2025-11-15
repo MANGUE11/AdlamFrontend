@@ -1,0 +1,28 @@
+/* @tailwind base;
+@tailwind components;
+@tailwind utilities; */
+
+/* ISOLER PROSE - NE TOUCHE QUE LE CONTENU */
+.article-content {
+  isolation: isolate;
+}
+
+.article-content
+  :where(p, h1, h2, h3, h4, h5, h6, ul, ol, li, img, blockquote, pre, code) {
+  all: revert;
+}
+
+/* Réappliquer les styles Tailwind uniquement ici */
+.article-content .prose {
+  all: unset;
+}
+
+.article-content img {
+  max-width: 100% !important;
+  height: auto !important;
+  display: block;
+  margin: 1.5rem auto;
+  border-radius: 12px;
+  /* box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); */
+  max-width: 500px !important;
+}
