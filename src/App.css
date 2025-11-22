@@ -3,6 +3,26 @@
 @tailwind utilities; */
 
 /* ISOLER PROSE - NE TOUCHE QUE LE CONTENU */
+
+/* src/index.css (ou votre fichier CSS global) */
+
+@font-face {
+  font-family: 'Kigelia Adlam';
+  src: url('./assets/fonts/KigeliaAdlam-Regular.woff2') format('woff2'),
+    url('./assets/fonts/KigeliaAdlam-Regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  /* Assurez-vous que le chemin d'accès au fichier est correct */
+}
+
+@font-face {
+  font-family: 'Kigelia Adlam';
+  src: url('./assets/fonts/KigeliaAdlam-Bold.woff2') format('woff2'),
+    url('./assets/fonts/KigeliaAdlam-Bold.woff') format('woff');
+  font-weight: bold;
+  font-style: normal;
+}
+
 .article-content {
   isolation: isolate;
 }

@@ -23,17 +23,18 @@ const translations = {
       logout: 'Déconnexion',
     },
     articleList: {
-      title: 'Liste des articles',
-      tableHeaders: ['Titre', 'Auteur', 'Publié le', 'Actions'],
+      title: '𞤕𞤭𞤪𞤼𞤮 𞤳𞤵𞤯𞤭',
+      tableHeaders: ['𞤅𞤫𞤪𞤭𞤲𞤣𞤫', 'Auteur', 'Publié le', '𞤚𞤮𞤲𞥋𞤣𞤭𞤪𞤫'],
       loading: 'Chargement des articles...',
       noArticles: 'Aucun article trouvé.',
-      editButton: 'Modifier',
-      deleteButton: 'Supprimer',
+      editButton: '𞤏𞤀𞤴𞤤𞤵',
+      deleteButton: '𞤃𞤮𞤲𞤼𞤵',
       deleteConfirm: 'Êtes-vous sûr de vouloir supprimer cet article ?',
       deleteSuccess: 'Article supprimé avec succès.',
       deleteError: "Erreur lors de la suppression de l'article.",
       updateSuccess: 'Article mis à jour avec succès.', // Nouveau message
       page: 'Page',
+      searchPlaceholder: 'Rechercher par titre (Adlam ou Français)...', // Nouveau
     },
     createArticle: {
       title: 'Créer un nouvel article',
@@ -54,8 +55,8 @@ const translations = {
       currentImage: 'Image actuelle :',
     },
     userList: {
-      title: 'Liste des utilisateurs',
-      tableHeaders: ['Nom', 'Email', 'Rôle', 'Actions'],
+      title: '𞤕𞤭𞤫𞤪𞤼𞤮𞤤 𞤸𞤵𞥅𞤼𞤢𞤪𞤢𞤴𞤩𞤫 ( 𞤼𞤢𞤱𞤼𞤵𞤩𞤫)',
+      tableHeaders: ['Nom', 'Email', 'Rôle', '𞤚𞤮𞤲𞥋𞤣𞤭𞤪𞤫'],
       loading: 'Chargement des utilisateurs...',
       noUsers: 'Aucun utilisateur trouvé.',
       editButton: 'Modifier',
@@ -184,7 +185,7 @@ const LanguageProvider = ({ children }) => {
   }
   return (
     <LanguageContext.Provider value={value}>
-      {children}
+            {children}   {' '}
     </LanguageContext.Provider>
   )
 }
@@ -198,23 +199,34 @@ const useLanguage = () => useContext(LanguageContext)
 // Composant de modal de confirmation personnalisé
 const ConfirmModal = ({ message, onConfirm, onCancel }) => (
   <div className='fixed inset-0 z-50 flex items-center justify-center bg-gray-600 bg-opacity-50'>
+       {' '}
     <div className='relative bg-white p-6 rounded-2xl shadow-lg w-full max-w-sm text-center'>
-      <p className='text-lg font-semibold mb-4'>{message}</p>
+            <p className='text-lg font-semibold mb-4'>{message}</p>     {' '}
       <div className='flex justify-center gap-4'>
+               {' '}
         <button
           onClick={onCancel}
           className='bg-gray-300 text-gray-800 font-bold py-2 px-4 rounded-full hover:bg-opacity-80 transition-all duration-300'
         >
-          Annuler
+                    Annuler        {' '}
         </button>
+               {' '}
         <button
           onClick={onConfirm}
           className='bg-red-500 text-white font-bold py-2 px-4 rounded-full hover:bg-red-600 transition-all duration-300'
         >
-          Confirmer
+                    Confirmer        {' '}
         </button>
+             {' '}
       </div>
+            {/* Overlay */}     {' '}
+      <div
+        className='fixed inset-0 bg-gray-600 bg-opacity-50'
+        onClick={onCancel}
+      />
+         {' '}
     </div>
+     {' '}
   </div>
 )
 
@@ -242,9 +254,8 @@ const EditArticleModal = ({ article, onClose, onUpdate }) => {
   const [selectedFile, setSelectedFile] = useState(null)
   const [previewUrl, setPreviewUrl] = useState(null)
   const [loading, setLoading] = useState(false)
-  const [uploadingImage, setUploadingImage] = useState(false)
+  const [uploadingImage, setUploadingImage] = useState(false) // Effet pour créer et nettoyer l'URL de l'aperçu
 
-  // Effet pour créer et nettoyer l'URL de l'aperçu
   useEffect(() => {
     if (!selectedFile) {
       setPreviewUrl(null)
@@ -252,9 +263,8 @@ const EditArticleModal = ({ article, onClose, onUpdate }) => {
     }
 
     const url = URL.createObjectURL(selectedFile)
-    setPreviewUrl(url)
+    setPreviewUrl(url) // Fonction de nettoyage pour libérer la mémoire
 
-    // Fonction de nettoyage pour libérer la mémoire
     return () => {
       URL.revokeObjectURL(url)
     }
@@ -296,8 +306,7 @@ const EditArticleModal = ({ article, onClose, onUpdate }) => {
       const data = await response.json()
       return data.imageUrl
     } catch (error) {
-      console.error(error)
-      // Ne pas afficher de message ici, la gestion globale se fait dans le handleSubmit
+      console.error(error) // Ne pas afficher de message ici, la gestion globale se fait dans le handleSubmit
       return null
     } finally {
       setUploadingImage(false)
@@ -348,13 +357,18 @@ const EditArticleModal = ({ article, onClose, onUpdate }) => {
 
   return (
     <div className='fixed inset-0 z-50 flex items-start justify-center overflow-y-auto pt-10 pb-10'>
+           {' '}
       <div className='relative bg-white p-8 rounded-2xl shadow-lg w-full max-w-2xl'>
-        <h2 className='text-2xl font-bold mb-4'>{currentLang.title}</h2>
+                <h2 className='text-2xl font-bold mb-4'>{currentLang.title}</h2>
+               {' '}
         <form onSubmit={handleSubmit} className='space-y-4'>
+                   {' '}
           <div>
+                       {' '}
             <label className='block text-sm font-medium text-gray-700'>
-              {titleLang.adlam}
+                            {titleLang.adlam}           {' '}
             </label>
+                       {' '}
             <input
               type='text'
               name='title_adlam'
@@ -362,11 +376,15 @@ const EditArticleModal = ({ article, onClose, onUpdate }) => {
               onChange={handleChange}
               className='w-full mt-1 p-2 border rounded-xl'
             />
+                     {' '}
           </div>
+                   {' '}
           <div>
+                       {' '}
             <label className='block text-sm font-medium text-gray-700'>
-              {titleLang.french}
+                            {titleLang.french}           {' '}
             </label>
+                       {' '}
             <input
               type='text'
               name='title_french'
@@ -374,11 +392,21 @@ const EditArticleModal = ({ article, onClose, onUpdate }) => {
               onChange={handleChange}
               className='w-full mt-1 p-2 border rounded-xl'
             />
+                       {' '}
+            {/* Overlay de la modal pour la fermer au clic en dehors */}     {' '}
+            <div
+              className='fixed inset-0 bg-gray-600 bg-opacity-50'
+              onClick={onClose}
+            />
+                     {' '}
           </div>
+                   {' '}
           <div>
+                       {' '}
             <label className='block text-sm font-medium text-gray-700'>
-              {titleLang.english}
+                            {titleLang.english}           {' '}
             </label>
+                       {' '}
             <input
               type='text'
               name='title_english'
@@ -386,11 +414,15 @@ const EditArticleModal = ({ article, onClose, onUpdate }) => {
               onChange={handleChange}
               className='w-full mt-1 p-2 border rounded-xl'
             />
+                     {' '}
           </div>
+                   {' '}
           <div>
+                       {' '}
             <label className='block text-sm font-medium text-gray-700'>
-              {titleLang.content.adlam}
+                            {titleLang.content.adlam}           {' '}
             </label>
+                       {' '}
             <textarea
               name='content_adlam'
               value={form.content_adlam}
@@ -398,11 +430,15 @@ const EditArticleModal = ({ article, onClose, onUpdate }) => {
               rows='5'
               className='w-full mt-1 p-2 border rounded-xl'
             ></textarea>
+                     {' '}
           </div>
+                   {' '}
           <div>
+                       {' '}
             <label className='block text-sm font-medium text-gray-700'>
-              {titleLang.content.french}
+                            {titleLang.content.french}           {' '}
             </label>
+                       {' '}
             <textarea
               name='content_french'
               value={form.content_french}
@@ -410,11 +446,15 @@ const EditArticleModal = ({ article, onClose, onUpdate }) => {
               rows='5'
               className='w-full mt-1 p-2 border rounded-xl'
             ></textarea>
+                     {' '}
           </div>
+                   {' '}
           <div>
+                       {' '}
             <label className='block text-sm font-medium text-gray-700'>
-              {titleLang.content.english}
+                            {titleLang.content.english}           {' '}
             </label>
+                       {' '}
             <textarea
               name='content_english'
               value={form.content_english}
@@ -422,11 +462,15 @@ const EditArticleModal = ({ article, onClose, onUpdate }) => {
               rows='5'
               className='w-full mt-1 p-2 border rounded-xl'
             ></textarea>
+                     {' '}
           </div>
+                   {' '}
           <div>
+                       {' '}
             <label className='block text-sm font-medium text-gray-700 mb-2'>
-              {currentLang.currentImage}
+                            {currentLang.currentImage}           {' '}
             </label>
+                       {' '}
             {(previewUrl || form.coverImageUrl) && (
               <img
                 src={previewUrl || form.coverImageUrl}
@@ -434,41 +478,54 @@ const EditArticleModal = ({ article, onClose, onUpdate }) => {
                 className='w-full h-auto rounded-xl shadow-md mb-4'
               />
             )}
+                       {' '}
             <input
               type='file'
               ref={fileInputRef}
               onChange={handleFileChange}
               className='hidden'
             />
+                       {' '}
             <button
               type='button'
               onClick={handleButtonClick}
               disabled={uploadingImage}
               className='w-full bg-blue-500 text-white font-bold py-2 px-4 rounded-full hover:bg-blue-600 transition-all duration-300'
             >
+                           {' '}
               {uploadingImage
                 ? currentLang.uploading
                 : currentLang.uploadNewImage}
+                         {' '}
             </button>
+                     {' '}
           </div>
+                   {' '}
           <div className='flex justify-end gap-4'>
+                       {' '}
             <button
               type='button'
               onClick={onClose}
               className='bg-gray-300 text-gray-800 font-bold py-2 px-4 rounded-full'
             >
-              {commonLang.closeButton}
+                            {commonLang.closeButton}           {' '}
             </button>
+                       {' '}
             <button
               type='submit'
               disabled={loading || uploadingImage}
               className='bg-[#2c3159] text-white font-bold py-2 px-4 rounded-full hover:bg-opacity-90 transition-all duration-300'
             >
-              {loading ? 'Mise à jour...' : currentLang.updateButton}
+                           {' '}
+              {loading ? 'Mise à jour...' : currentLang.updateButton}           {' '}
             </button>
+                     {' '}
           </div>
+                 {' '}
         </form>
+             {' '}
       </div>
+         {' '}
     </div>
   )
 }
@@ -488,7 +545,10 @@ const ArticleList = () => {
   const [currentArticle, setCurrentArticle] = useState(null)
   const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false)
   const [articleToDeleteId, setArticleToDeleteId] = useState(null)
-  const [message, setMessage] = useState(null)
+  const [message, setMessage] = useState(null) // Nouveaux états pour la barre de recherche et le filtrage
+  const [searchTerm, setSearchTerm] = useState('')
+  const [filteredArticles, setFilteredArticles] = useState([])
+  const [allArticles, setAllArticles] = useState([]) // Pour stocker tous les articles non filtrés
 
   const fetchArticles = async () => {
     setLoading(true)
@@ -512,14 +572,35 @@ const ArticleList = () => {
           article.title_french ||
           article.title_english,
       }))
-      setArticles(formattedArticles)
+      setAllArticles(formattedArticles) // Stocke tous les articles
+      setArticles(formattedArticles) // Initialise les articles affichés
     } catch (err) {
       console.error("Erreur de l'API :", err)
       setError('Erreur de connexion au serveur.')
     } finally {
       setLoading(false)
     }
-  }
+  } // Logique de filtrage
+
+  useEffect(() => {
+    setCurrentPage(1) // Réinitialiser à la première page lors du filtrage
+
+    if (searchTerm.trim() === '') {
+      setFilteredArticles(allArticles)
+      return
+    }
+
+    const lowercasedSearchTerm = searchTerm.toLowerCase()
+    const filtered = allArticles.filter((article) => {
+      const titleAdlam = article.title_adlam?.toLowerCase() || ''
+      const titleFrench = article.title_french?.toLowerCase() || ''
+      return (
+        titleAdlam.includes(lowercasedSearchTerm) ||
+        titleFrench.includes(lowercasedSearchTerm)
+      )
+    })
+    setFilteredArticles(filtered)
+  }, [searchTerm, allArticles])
 
   const handleDelete = (articleId) => {
     setArticleToDeleteId(articleId)
@@ -562,9 +643,8 @@ const ArticleList = () => {
   const handleEdit = (article) => {
     setCurrentArticle(article)
     setIsEditModalOpen(true)
-  }
+  } // Fonction pour gérer la mise à jour et le message de succès
 
-  // Fonction pour gérer la mise à jour et le message de succès
   const handleArticleUpdate = (message) => {
     setMessage(message)
     setIsEditModalOpen(false)
@@ -576,16 +656,15 @@ const ArticleList = () => {
     if (token) {
       fetchArticles()
     }
-  }, [token, selectedLanguage])
+  }, [token, selectedLanguage]) // Logique de pagination
 
-  // Logique de pagination
   const indexOfLastArticle = currentPage * articlesPerPage
   const indexOfFirstArticle = indexOfLastArticle - articlesPerPage
-  const currentArticles = articles.slice(
+  const articlesToDisplay = filteredArticles.slice(
     indexOfFirstArticle,
     indexOfLastArticle
   )
-  const totalPages = Math.ceil(articles.length / articlesPerPage)
+  const totalPages = Math.ceil(filteredArticles.length / articlesPerPage)
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber)
 
@@ -594,9 +673,11 @@ const ArticleList = () => {
 
   return (
     <div className='bg-white p-6 rounded-2xl shadow-lg'>
+           {' '}
       <h2 className='text-2xl font-bold text-[#2c3159] mb-6'>
-        {currentLang.title}
+                {currentLang.title}     {' '}
       </h2>
+           {' '}
       {message && (
         <div
           className={`p-3 mb-4 rounded-xl font-bold ${
@@ -605,70 +686,108 @@ const ArticleList = () => {
               : 'bg-red-100 text-red-700'
           }`}
         >
-          {message.text}
+                    {message.text}       {' '}
         </div>
       )}
+      {/* Barre de recherche ajoutée ici */}
+      <div className='mb-4'>
+        <input
+          type='text'
+          placeholder={currentLang.searchPlaceholder}
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          className='w-full p-3 border border-gray-300 rounded-xl focus:ring-[#2c3159] focus:border-[#2c3159] transition-all duration-300'
+        />
+      </div>
+      {/* Fin Barre de recherche */}     {' '}
       <div className='overflow-x-auto'>
+               {' '}
         <table className='min-w-full bg-white rounded-xl shadow-md overflow-hidden'>
+                   {' '}
           <thead className='bg-gray-200'>
+                       {' '}
             <tr>
+                           {' '}
               {currentLang.tableHeaders.map((header, index) => (
                 <th
                   key={index}
                   className='py-3 px-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider'
                 >
-                  {header}
+                                    {header}               {' '}
                 </th>
               ))}
+                         {' '}
             </tr>
+                     {' '}
           </thead>
+                   {' '}
           <tbody>
-            {currentArticles.length > 0 ? (
-              currentArticles.map((article) => (
+                       {' '}
+            {articlesToDisplay.length > 0 ? (
+              articlesToDisplay.map((article) => (
                 <tr
                   key={article.id}
                   className='border-b border-gray-200 hover:bg-gray-50'
                 >
+                                   {' '}
                   <td className='py-3 px-4 text-sm text-gray-800'>
-                    {article.displayTitle}
+                                        {article.displayTitle}                 {' '}
                   </td>
+                                   {' '}
                   <td className='py-3 px-4 text-sm text-gray-800'>
-                    {article.author?.name || 'Auteur inconnu'}
+                                       {' '}
+                    {article.author?.name || 'Auteur inconnu'}                 {' '}
                   </td>
+                                   {' '}
                   <td className='py-3 px-4 text-sm text-gray-800'>
-                    {new Date(article.createdAt).toLocaleDateString()}
+                                       {' '}
+                    {new Date(article.createdAt).toLocaleDateString()}         
+                           {' '}
                   </td>
+                                   {' '}
                   <td className='py-3 px-4 text-sm text-gray-800 flex gap-2'>
+                                       {' '}
                     <button
                       onClick={() => handleEdit(article)}
                       className='bg-blue-500 text-white py-1 px-3 rounded-full hover:bg-blue-600 transition-colors duration-200'
                     >
-                      {currentLang.editButton}
+                                            {currentLang.editButton}           
+                             {' '}
                     </button>
+                                       {' '}
                     <button
                       onClick={() => handleDelete(article.id)}
                       className='bg-red-500 text-white py-1 px-3 rounded-full hover:bg-red-600 transition-colors duration-200'
                     >
-                      {currentLang.deleteButton}
+                                            {currentLang.deleteButton}         
+                               {' '}
                     </button>
+                                     {' '}
                   </td>
+                                 {' '}
                 </tr>
               ))
             ) : (
               <tr>
+                               {' '}
                 <td
                   colSpan='4'
                   className='py-3 px-4 text-center text-sm text-gray-500'
                 >
-                  {currentLang.noArticles}
+                                    {currentLang.noArticles}               {' '}
                 </td>
+                             {' '}
               </tr>
             )}
+                     {' '}
           </tbody>
+                 {' '}
         </table>
+             {' '}
       </div>
-      {/* Pagination */}
+            {/* Pagination */}     {' '}
       <div className='flex justify-center items-center gap-2 mt-4'>
+               {' '}
         {Array.from({ length: totalPages }, (_, i) => (
           <button
             key={i}
@@ -679,10 +798,12 @@ const ArticleList = () => {
                 : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
             }`}
           >
-            {i + 1}
+                        {i + 1}         {' '}
           </button>
         ))}
+             {' '}
       </div>
+           {' '}
       {isEditModalOpen && (
         <EditArticleModal
           article={currentArticle}
@@ -690,6 +811,7 @@ const ArticleList = () => {
           onUpdate={handleArticleUpdate}
         />
       )}
+           {' '}
       {isConfirmModalOpen && (
         <ConfirmModal
           message={currentLang.deleteConfirm}
@@ -697,17 +819,22 @@ const ArticleList = () => {
           onCancel={() => setIsConfirmModalOpen(false)}
         />
       )}
+         {' '}
     </div>
   )
 }
 
 const App = () => (
   <LanguageProvider>
+       {' '}
     <AuthProvider>
+           {' '}
       <div className='p-8 bg-gray-100 min-h-screen font-sans antialiased'>
-        <ArticleList />
+                <ArticleList />     {' '}
       </div>
+         {' '}
     </AuthProvider>
+     {' '}
   </LanguageProvider>
 )
 

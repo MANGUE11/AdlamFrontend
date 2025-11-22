@@ -42,7 +42,7 @@ const Footer = () => {
               className={`text-xl font-bold mb-4 text-center ${textAlignClass}`}
               style={{ direction: textDirection }}
             >
-              Menu
+              𞤃𞤮𞤬𞤼𞤭
             </h4>
             <ul
               className={`space-y-2 text-center ${textAlignClass}`}
@@ -69,7 +69,7 @@ const Footer = () => {
               className={`text-xl font-bold mb-4 text-center ${textAlignClass}`}
               style={{ direction: textDirection }}
             >
-              Menu
+              𞤃𞤮𞤬𞤼𞤭
             </h4>
             <ul
               className={`space-y-2 text-center ${textAlignClass}`}

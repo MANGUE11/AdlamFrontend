@@ -107,43 +107,21 @@ const ResizableImage = Image.extend({
   },
 })
 
-// === RE-UPLOAD DES IMAGES BLOB EN ÉDITION ===
-const reuploadBlobImages = async (html, token, editor) => {
+// === NETTOYAGE ET RE-UPLOAD DES IMAGES BLOB ===
+const cleanAndReuploadImages = async (html, token, editor) => {
+  if (!html) return ''
+
   const parser = new DOMParser()
   const doc = parser.parseFromString(html, 'text/html')
-  const blobImgs = doc.querySelectorAll('img[src^="blob:"]')
+  const allImgs = doc.querySelectorAll('img')
 
-  for (const img of blobImgs) {
-    const blobUrl = img.getAttribute('src')
-    try {
-      const response = await fetch(blobUrl)
-      const blob = await response.blob()
-      const file = new File([blob], `image-${Date.now()}.jpg`, {
-        type: blob.type,
-      })
+  for (const img of allImgs) {
+    const src = img.getAttribute('src')
 
-      const formData = new FormData()
-      formData.append('image', file)
-
-      const uploadRes = await fetch(
-        'https://adlambackend-production.up.railway.app/api/upload',
-        {
-          method: 'POST',
-          headers: { Authorization: `Bearer ${token}` },
-          body: formData,
-        }
-      )
-
-      const result = await uploadRes.json()
-      if (!uploadRes.ok) throw new Error('Upload failed')
-
-      const finalUrl = result.imageUrl
-      img.setAttribute('src', finalUrl)
-
-      // Mettre à jour dans l'éditeur Tiptap
-      editor.commands.updateAttributes('image', { src: finalUrl })
-    } catch (err) {
-      console.error('Re-upload failed for blob image:', err)
+    // Si c'est une URL blob, la supprimer ou la remplacer
+    if (src && src.startsWith('blob:')) {
+      console.warn('Image blob détectée et supprimée:', src)
+      img.remove() // Supprimer l'image blob car elle est invalide
     }
   }
 
@@ -153,6 +131,8 @@ const reuploadBlobImages = async (html, token, editor) => {
 // === COMPOSANT ÉDITEUR ===
 const RichTextEditor = ({ content, onUpdate, label, isEditMode = false }) => {
   const { token } = useAuth()
+  const [isInitialized, setIsInitialized] = useState(false)
+
   const editor = useEditor({
     extensions: [
       StarterKit,
@@ -162,8 +142,11 @@ const RichTextEditor = ({ content, onUpdate, label, isEditMode = false }) => {
         HTMLAttributes: { class: 'max-w-full h-auto rounded-lg' },
       }),
     ],
-    content,
-    onUpdate: ({ editor }) => onUpdate(editor.getHTML()),
+    content: '', // Vide au départ
+    onUpdate: ({ editor }) => {
+      const html = editor.getHTML()
+      onUpdate(html)
+    },
     editorProps: {
       attributes: {
         class:
@@ -172,14 +155,20 @@ const RichTextEditor = ({ content, onUpdate, label, isEditMode = false }) => {
     },
   })
 
-  // === RE-UPLOAD AUTOMATIQUE DES BLOB EN ÉDITION ===
+  // === INITIALISATION DU CONTENU (UNE SEULE FOIS) ===
   useEffect(() => {
-    if (isEditMode && content && editor && token) {
-      reuploadBlobImages(content, token, editor).then((cleanHtml) => {
-        editor.commands.setContent(cleanHtml, false)
-      })
+    if (editor && !isInitialized) {
+      if (content) {
+        // Nettoyer le contenu avant de le charger
+        cleanAndReuploadImages(content, token, editor).then((cleanHtml) => {
+          editor.commands.setContent(cleanHtml, false)
+          setIsInitialized(true)
+        })
+      } else {
+        setIsInitialized(true)
+      }
     }
-  }, [content, isEditMode, editor, token])
+  }, [editor, content, token, isInitialized])
 
   const addImageFromPC = async () => {
     const input = document.createElement('input')
@@ -189,12 +178,15 @@ const RichTextEditor = ({ content, onUpdate, label, isEditMode = false }) => {
       const file = e.target.files[0]
       if (!file || !editor) return
 
-      const tempUrl = URL.createObjectURL(file)
-      editor.chain().focus().setImage({ src: tempUrl }).run()
-
       try {
+        // Upload immédiat sans passer par blob
         const formData = new FormData()
         formData.append('image', file)
+
+        // Afficher un loader
+        const loadingImg =
+          'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTAiIGhlaWdodD0iNTAiIHZpZXdCb3g9IjAgMCA1MCA1MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48Y2lyY2xlIGN4PSIyNSIgY3k9IjI1IiByPSIyMCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMmMzMTU5IiBzdHJva2Utd2lkdGg9IjQiPjxhbmltYXRlIGF0dHJpYnV0ZU5hbWU9InN0cm9rZS1kYXNoYXJyYXkiIGR1cj0iMnMiIHJlcGVhdENvdW50PSJpbmRlZmluaXRlIiB2YWx1ZXM9IjAgMTI1OzEyNSAwIi8+PC9jaXJjbGU+PC9zdmc+'
+        editor.chain().focus().setImage({ src: loadingImg }).run()
 
         const uploadResponse = await fetch(
           'https://adlambackend-production.up.railway.app/api/upload',
@@ -210,14 +202,14 @@ const RichTextEditor = ({ content, onUpdate, label, isEditMode = false }) => {
           throw new Error(result.message || "Erreur d'upload")
 
         const finalUrl = result.imageUrl
-        editor
-          .chain()
-          .focus()
-          .deleteSelection()
-          .setImage({ src: finalUrl })
-          .run()
+
+        // Remplacer le loader par l'image finale
+        const currentContent = editor.getHTML()
+        const updatedContent = currentContent.replace(loadingImg, finalUrl)
+        editor.commands.setContent(updatedContent, false)
       } catch (error) {
         alert('Erreur upload : ' + error.message)
+        // Supprimer l'image en cas d'erreur
         editor.chain().focus().deleteSelection().run()
       }
     }
@@ -260,7 +252,7 @@ const RichTextEditor = ({ content, onUpdate, label, isEditMode = false }) => {
             onClick={addImageFromPC}
             className='p-2 rounded bg-blue-600 text-white hover:bg-blue-700 flex items-center gap-1'
           >
-            Image
+            📷 Image
           </button>
         </div>
         <EditorContent editor={editor} />
@@ -350,6 +342,13 @@ const CreateArticleForm = ({ article }) => {
           : 'Article créé avec succès !'
       )
       setMessageType('success')
+
+      // Recharger la page après 1.5 secondes pour afficher les modifications
+      if (isEditMode) {
+        setTimeout(() => {
+          window.location.reload()
+        }, 1500)
+      }
     } catch (error) {
       setMessage(error.message || 'Une erreur est survenue.')
       setMessageType('error')
@@ -435,6 +434,15 @@ const CreateArticleForm = ({ article }) => {
           <label className='block text-sm font-medium text-gray-700 mb-1'>
             𞤐𞤢𞤼𞤢𞤤 𞤦𞤵𞥅𞤥𞤵𞤲𞥋𞤲𞤺𞤢𞤤
           </label>
+          {article?.coverImageUrl && !coverImage && (
+            <div className='mb-2'>
+              <img
+                src={article.coverImageUrl}
+                alt='Cover actuelle'
+                className='w-32 h-32 object-cover rounded-lg'
+              />
+            </div>
+          )}
           <input
             type='file'
             accept='image/*'

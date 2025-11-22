@@ -6,13 +6,54 @@ const AllArticlesPage = () => {
   const { translations, selectedLanguage, textDirection } = useLanguage()
   const currentLang = translations[selectedLanguage]
   const articlesPageLang = currentLang.allArticlesPage
-  const articlesData = currentLang.articlesSection
+  const articlesData = currentLang.articlesSection // États pour les données et le chargement
 
-  const [articles, setArticles] = useState([])
+  const [articles, setArticles] = useState([]) // Tous les articles bruts
+  const [filteredArticles, setFilteredArticles] = useState([]) // Articles après filtrage/recherche
   const [loading, setLoading] = useState(true)
-  const [error, setError] = useState(null)
+  const [error, setError] = useState(null) // État pour la recherche
+  const [searchTerm, setSearchTerm] = useState('') // États pour la pagination
+
   const [currentPage, setCurrentPage] = useState(1)
-  const articlesPerPage = 10
+  const articlesPerPage = 10 // Fonction utilitaire pour obtenir le titre localisé
+
+  const getArticleTitle = (article) => {
+    switch (selectedLanguage) {
+      case 'adlam':
+        return article.title_adlam
+      case 'fr':
+        return article.title_french
+      case 'en':
+        return article.title_english
+      default:
+        return article.title_french
+    }
+  } // Fonction utilitaire pour obtenir le contenu localisé
+
+  const getArticleContent = (article) => {
+    switch (selectedLanguage) {
+      case 'adlam':
+        return article.content_adlam
+      case 'fr':
+        return article.content_french
+      case 'en':
+        return article.content_english
+      default:
+        return article.content_french
+    }
+  } // === FONCTION : SUPPRIMER LE HTML, GARDER LE TEXTE BRUT ===
+
+  const stripHtml = (html) => {
+    const div = document.createElement('div')
+    div.innerHTML = html
+    return div.textContent || div.innerText || ''
+  } // === FONCTION : EXTRAIT PROPRE (100 caractères max) ===
+
+  const getCleanExcerpt = (article) => {
+    const fullText = getArticleContent(article)
+    const plainText = stripHtml(fullText)
+    return plainText.length > 100 ? plainText.slice(0, 100) + '...' : plainText
+  } // === EFFET 1 : CHARGEMENT DES ARTICLES (au montage ou changement de langue) ===
 
   useEffect(() => {
     const fetchArticles = async () => {
@@ -36,56 +77,45 @@ const AllArticlesPage = () => {
     }
 
     fetchArticles()
-  }, [selectedLanguage])
+  }, []) // La langue est déjà gérée dans getArticleTitle/Content // === EFFET 2 : FILTRAGE DES ARTICLES (au changement de articles ou searchTerm) ===
 
-  const getArticleTitle = (article) => {
-    switch (selectedLanguage) {
-      case 'adlam':
-        return article.title_adlam
-      case 'fr':
-        return article.title_french
-      case 'en':
-        return article.title_english
-      default:
-        return article.title_french
+  useEffect(() => {
+    setCurrentPage(1) // Réinitialiser à la première page lors du filtrage
+
+    if (searchTerm.trim() === '') {
+      setFilteredArticles(articles)
+      return
     }
-  }
 
-  const getArticleContent = (article) => {
-    switch (selectedLanguage) {
-      case 'adlam':
-        return article.content_adlam
-      case 'fr':
-        return article.content_french
-      case 'en':
-        return article.content_english
-      default:
-        return article.content_french
-    }
-  }
+    const lowercasedSearchTerm = searchTerm.toLowerCase()
 
-  // === FONCTION : SUPPRIMER LE HTML, GARDER LE TEXTE BRUT ===
-  const stripHtml = (html) => {
-    const div = document.createElement('div')
-    div.innerHTML = html
-    return div.textContent || div.innerText || ''
-  }
+    const filtered = articles.filter((article) => {
+      // Filtre sur les titres dans toutes les langues pour une recherche complète
+      const titleAdlam = article.title_adlam?.toLowerCase() || ''
+      const titleFrench = article.title_french?.toLowerCase() || ''
+      const titleEnglish = article.title_english?.toLowerCase() || ''
+      const authorName = article.author?.name?.toLowerCase() || ''
+      return (
+        titleAdlam.includes(lowercasedSearchTerm) ||
+        titleFrench.includes(lowercasedSearchTerm) ||
+        titleEnglish.includes(lowercasedSearchTerm) ||
+        authorName.includes(lowercasedSearchTerm)
+      )
+    })
+    setFilteredArticles(filtered)
+  }, [searchTerm, articles]) // Gestion du changement dans la barre de recherche
 
-  // === FONCTION : EXTRAIT PROPRE (100 caractères max) ===
-  const getCleanExcerpt = (article) => {
-    const fullText = getArticleContent(article)
-    const plainText = stripHtml(fullText)
-    return plainText.length > 100 ? plainText.slice(0, 100) + '...' : plainText
-  }
+  const handleSearchChange = (event) => {
+    setSearchTerm(event.target.value)
+  } // === PAGINATION ===
 
-  // === PAGINATION ===
   const indexOfLastArticle = currentPage * articlesPerPage
-  const indexOfFirstArticle = indexOfLastArticle - articlesPerPage
-  const currentArticles = articles.slice(
+  const indexOfFirstArticle = indexOfLastArticle - articlesPerPage // La pagination utilise maintenant la liste filtrée
+  const currentArticles = filteredArticles.slice(
     indexOfFirstArticle,
     indexOfLastArticle
   )
-  const totalPages = Math.ceil(articles.length / articlesPerPage)
+  const totalPages = Math.ceil(filteredArticles.length / articlesPerPage)
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber)
   const nextPage = () => {
@@ -98,7 +128,7 @@ const AllArticlesPage = () => {
   if (loading) {
     return (
       <div className='text-center py-16 text-lg'>
-        Chargement des articles...
+                Chargement des articles...      {' '}
       </div>
     )
   }
@@ -111,33 +141,61 @@ const AllArticlesPage = () => {
 
   return (
     <div className='font-sans min-h-screen'>
-      {/* === HERO SECTION === */}
+            {/* === HERO SECTION === */}     {' '}
       <section className='bg-[#2c3159] text-white py-20 px-4 text-center pt-48 md:pt-36'>
+               {' '}
         <div className='container mx-auto max-w-7xl'>
+                   {' '}
           <h1 className='text-5xl md:text-6xl font-extrabold mb-4 leading-tight'>
-            {articlesPageLang.heroTitle}
+                        {articlesPageLang.heroTitle}         {' '}
           </h1>
+                   {' '}
           <p className='text-xl md:text-2xl font-light opacity-80 max-w-3xl mx-auto'>
-            {articlesPageLang.heroSubtitle}
+                        {articlesPageLang.heroSubtitle}         {' '}
           </p>
+                 {' '}
         </div>
+             {' '}
       </section>
-
-      {/* === LISTE DES ARTICLES === */}
+            {/* === LISTE DES ARTICLES AVEC BARRE DE RECHERCHE === */}     {' '}
       <section className='bg-gray-100 py-16'>
+               {' '}
         <div className='container mx-auto px-4 max-w-7xl'>
-          {articles.length === 0 ? (
+                    {/* === BARRE DE RECHERCHE AJOUTÉE ICI === */}         {' '}
+          <div className='mb-10'>
+                       {' '}
+            <input
+              type='text'
+              placeholder={
+                articlesPageLang.searchPlaceholder ||
+                'Rechercher des articles...'
+              }
+              value={searchTerm}
+              onChange={handleSearchChange}
+              className='w-full p-4 border border-gray-300 rounded-lg shadow-md focus:ring-2 focus:ring-[#2c3159] focus:border-transparent transition duration-200'
+              style={{ direction: textDirection }}
+            />
+                     {' '}
+          </div>
+                   {' '}
+          {filteredArticles.length === 0 && searchTerm !== '' ? (
             <p className='text-gray-600 text-center text-lg'>
-              Aucun article trouvé.
+                            Aucun résultat trouvé pour "{searchTerm}".          
+               {' '}
+            </p>
+          ) : filteredArticles.length === 0 && searchTerm === '' ? (
+            <p className='text-gray-600 text-center text-lg'>
+                            Aucun article trouvé.            {' '}
             </p>
           ) : (
             <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8'>
+                           {' '}
               {currentArticles.map((article) => (
                 <div
                   key={article.id}
                   className='bg-white rounded-lg shadow-lg overflow-hidden transition-transform transform hover:scale-105 duration-300'
                 >
-                  {/* Image de couverture */}
+                                    {/* Image de couverture */}                 {' '}
                   <img
                     src={article.coverImageUrl}
                     alt={
@@ -149,47 +207,59 @@ const AllArticlesPage = () => {
                       e.target.src = '/placeholder.jpg' // Optionnel : image par défaut
                     }}
                   />
-
-                  {/* Contenu */}
+                                    {/* Contenu */}                 {' '}
                   <div className='p-6 text-center'>
+                                       {' '}
                     <h3 className='text-xl font-bold text-[#2c3159] mb-2 line-clamp-2'>
-                      {getArticleTitle(article)}
+                                            {getArticleTitle(article)}         
+                               {' '}
                     </h3>
+                                       {' '}
                     <p
                       className='text-gray-500 mb-4 line-clamp-3 text-sm leading-relaxed'
                       style={{ direction: textDirection }}
                     >
-                      {getCleanExcerpt(article)}
+                                            {getCleanExcerpt(article)}         
+                               {' '}
                     </p>
+                                       {' '}
                     <Link
                       to={`/articles/${article.id}`}
                       className='inline-block bg-[#2c3159] text-white font-bold py-2 px-6 rounded-full shadow-md hover:bg-[#1a1e3a] transition duration-300'
                     >
-                      {articlesData.readMoreButton}
+                                            {articlesData.readMoreButton}       
+                                 {' '}
                     </Link>
+                                     {' '}
                   </div>
+                                 {' '}
                 </div>
               ))}
+                         {' '}
             </div>
           )}
+                 {' '}
         </div>
+             {' '}
       </section>
-
-      {/* === PAGINATION === */}
-      {articles.length > articlesPerPage && (
+            {/* === PAGINATION === */}     {' '}
+      {/* La pagination s'affiche uniquement s'il y a plus d'articles filtrés que d'articles par page */}
+           {' '}
+      {filteredArticles.length > articlesPerPage && (
         <div className='container mx-auto px-4 py-8 max-w-7xl'>
+                   {' '}
           <div className='flex justify-center items-center space-x-2 flex-wrap gap-2'>
+                       {' '}
             <button
               onClick={prevPage}
               disabled={currentPage === 1}
               className='bg-white text-[#2c3159] font-bold py-2 px-4 rounded-full shadow-md hover:bg-gray-100 transition duration-300 disabled:opacity-50 disabled:cursor-not-allowed'
             >
-              Précédent
+                            Précédent            {' '}
             </button>
-
-            {/* Numéros de page (optionnel : afficher 1 à 5) */}
-            {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
-              const pageNum = i + 1
+                        {/* Numéros de page */}           {' '}
+            {Array.from({ length: totalPages }, (_, i) => {
+              const pageNum = i + 1 // Logique pour n'afficher qu'un sous-ensemble des pages (simplifié ici pour afficher toutes les pages) // Si vous avez beaucoup de pages, vous pouvez réintégrer la logique Math.min(5, totalPages)
               return (
                 <button
                   key={pageNum}
@@ -200,29 +270,28 @@ const AllArticlesPage = () => {
                       : 'bg-white text-[#2c3159] hover:bg-gray-100'
                   }`}
                 >
-                  {pageNum}
+                                    {pageNum}               {' '}
                 </button>
               )
             })}
-
-            {totalPages > 5 && (
-              <span className='px-3 py-2 text-gray-600'>...</span>
-            )}
-
+                       {' '}
             <button
               onClick={nextPage}
               disabled={currentPage === totalPages}
               className='bg-white text-[#2c3159] font-bold py-2 px-4 rounded-full shadow-md hover:bg-gray-100 transition duration-300 disabled:opacity-50 disabled:cursor-not-allowed'
             >
-              Suivant
+                            Suivant            {' '}
             </button>
+                     {' '}
           </div>
-
+                   {' '}
           <p className='text-center mt-4 text-sm text-gray-600'>
-            Page {currentPage} sur {totalPages}
+                        Page {currentPage} sur {totalPages}         {' '}
           </p>
+                 {' '}
         </div>
       )}
+         {' '}
     </div>
   )
 }
