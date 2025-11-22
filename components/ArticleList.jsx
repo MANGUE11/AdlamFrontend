@@ -6,11 +6,14 @@ import React, {
   useRef,
 } from 'react'
 
+// --- 1. CONFIGURATION ET CONTEXTES ---
+
 // Création des Contextes
 const AuthContext = createContext(null)
 const LanguageContext = createContext(null)
+const API_BASE_URL = 'https://adlambackend-production.up.railway.app/api'
 
-// Définition des traductions
+// Définition des traductions (MODIFIÉ : ajout de searchPlaceholder)
 const translations = {
   fr: {
     dashboard: {
@@ -23,18 +26,19 @@ const translations = {
       logout: 'Déconnexion',
     },
     articleList: {
-      title: '𞤕𞤭𞤪𞤼𞤮 𞤳𞤵𞤯𞤭',
-      tableHeaders: ['𞤅𞤫𞤪𞤭𞤲𞤣𞤫', 'Auteur', 'Publié le', '𞤚𞤮𞤲𞥋𞤣𞤭𞤪𞤫'],
+      title: 'Liste des articles',
+      tableHeaders: ['Titre', 'Auteur', 'Publié le', 'Actions'],
       loading: 'Chargement des articles...',
       noArticles: 'Aucun article trouvé.',
-      editButton: '𞤏𞤀𞤴𞤤𞤵',
-      deleteButton: '𞤃𞤮𞤲𞤼𞤵',
+      editButton: 'Modifier',
+      deleteButton: 'Supprimer',
       deleteConfirm: 'Êtes-vous sûr de vouloir supprimer cet article ?',
       deleteSuccess: 'Article supprimé avec succès.',
       deleteError: "Erreur lors de la suppression de l'article.",
       updateSuccess: 'Article mis à jour avec succès.', // Nouveau message
       page: 'Page',
-      searchPlaceholder: 'Rechercher par titre (Adlam ou Français)...', // Nouveau
+      // NOUVEAU: Texte pour la barre de recherche
+      searchPlaceholder: 'Rechercher par titre (Adlam ou Français)...',
     },
     createArticle: {
       title: 'Créer un nouvel article',
@@ -55,8 +59,8 @@ const translations = {
       currentImage: 'Image actuelle :',
     },
     userList: {
-      title: '𞤕𞤭𞤫𞤪𞤼𞤮𞤤 𞤸𞤵𞥅𞤼𞤢𞤪𞤢𞤴𞤩𞤫 ( 𞤼𞤢𞤱𞤼𞤵𞤩𞤫)',
-      tableHeaders: ['Nom', 'Email', 'Rôle', '𞤚𞤮𞤲𞥋𞤣𞤭𞤪𞤫'],
+      title: 'Liste des utilisateurs',
+      tableHeaders: ['Nom', 'Email', 'Rôle', 'Actions'],
       loading: 'Chargement des utilisateurs...',
       noUsers: 'Aucun utilisateur trouvé.',
       editButton: 'Modifier',
@@ -196,6 +200,8 @@ const useAuth = () => useContext(AuthContext)
 // Hook personnalisé pour utiliser le contexte de langue
 const useLanguage = () => useContext(LanguageContext)
 
+// --- 2. MODALS ET COMPOSANTS UTILITAIRES ---
+
 // Composant de modal de confirmation personnalisé
 const ConfirmModal = ({ message, onConfirm, onCancel }) => (
   <div className='fixed inset-0 z-50 flex items-center justify-center bg-gray-600 bg-opacity-50'>
@@ -219,18 +225,11 @@ const ConfirmModal = ({ message, onConfirm, onCancel }) => (
         </button>
              {' '}
       </div>
-            {/* Overlay */}     {' '}
-      <div
-        className='fixed inset-0 bg-gray-600 bg-opacity-50'
-        onClick={onCancel}
-      />
          {' '}
     </div>
      {' '}
   </div>
 )
-
-const API_BASE_URL = 'https://adlambackend-production.up.railway.app/api'
 
 // Composant de modal pour l'édition d'article
 const EditArticleModal = ({ article, onClose, onUpdate }) => {
@@ -321,7 +320,9 @@ const EditArticleModal = ({ article, onClose, onUpdate }) => {
     if (selectedFile) {
       newImageUrl = await uploadImage()
       if (!newImageUrl) {
+        onUpdate({ type: 'error', text: currentLang.uploadError })
         setLoading(false)
+        onClose()
         return
       }
     }
@@ -391,12 +392,6 @@ const EditArticleModal = ({ article, onClose, onUpdate }) => {
               value={form.title_french}
               onChange={handleChange}
               className='w-full mt-1 p-2 border rounded-xl'
-            />
-                       {' '}
-            {/* Overlay de la modal pour la fermer au clic en dehors */}     {' '}
-            <div
-              className='fixed inset-0 bg-gray-600 bg-opacity-50'
-              onClick={onClose}
             />
                      {' '}
           </div>
@@ -530,13 +525,17 @@ const EditArticleModal = ({ article, onClose, onUpdate }) => {
   )
 }
 
-// Composant de liste d'articles
+// --- 3. COMPOSANT PRINCIPAL (ArticleList) AVEC RECHERCHE ---
+
 const ArticleList = () => {
   const { token } = useAuth()
   const { translations, selectedLanguage } = useLanguage()
-  const currentLang = translations[selectedLanguage].articleList
+  const currentLang = translations[selectedLanguage].articleList // États de la source de vérité et de filtrage
 
-  const [articles, setArticles] = useState([])
+  const [allArticles, setAllArticles] = useState([]) // Tous les articles non filtrés
+  const [filteredArticles, setFilteredArticles] = useState([]) // Articles affichés (filtrés)
+  const [searchTerm, setSearchTerm] = useState('') // NOUVEAU: Terme de recherche // États d'UI et d'opération
+
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
   const [currentPage, setCurrentPage] = useState(1)
@@ -545,10 +544,7 @@ const ArticleList = () => {
   const [currentArticle, setCurrentArticle] = useState(null)
   const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false)
   const [articleToDeleteId, setArticleToDeleteId] = useState(null)
-  const [message, setMessage] = useState(null) // Nouveaux états pour la barre de recherche et le filtrage
-  const [searchTerm, setSearchTerm] = useState('')
-  const [filteredArticles, setFilteredArticles] = useState([])
-  const [allArticles, setAllArticles] = useState([]) // Pour stocker tous les articles non filtrés
+  const [message, setMessage] = useState(null) // Fonction pour récupérer les articles et formater les titres
 
   const fetchArticles = async () => {
     setLoading(true)
@@ -572,15 +568,14 @@ const ArticleList = () => {
           article.title_french ||
           article.title_english,
       }))
-      setAllArticles(formattedArticles) // Stocke tous les articles
-      setArticles(formattedArticles) // Initialise les articles affichés
+      setAllArticles(formattedArticles) // Met à jour la source de vérité
     } catch (err) {
       console.error("Erreur de l'API :", err)
       setError('Erreur de connexion au serveur.')
     } finally {
       setLoading(false)
     }
-  } // Logique de filtrage
+  } // Logique de filtrage (useEffect)
 
   useEffect(() => {
     setCurrentPage(1) // Réinitialiser à la première page lors du filtrage
@@ -592,6 +587,7 @@ const ArticleList = () => {
 
     const lowercasedSearchTerm = searchTerm.toLowerCase()
     const filtered = allArticles.filter((article) => {
+      // Recherche dans le titre Adlam et Français
       const titleAdlam = article.title_adlam?.toLowerCase() || ''
       const titleFrench = article.title_french?.toLowerCase() || ''
       return (
@@ -600,7 +596,13 @@ const ArticleList = () => {
       )
     })
     setFilteredArticles(filtered)
-  }, [searchTerm, allArticles])
+  }, [searchTerm, allArticles]) // Effect pour le chargement initial et le changement de langue
+
+  useEffect(() => {
+    if (token) {
+      fetchArticles()
+    }
+  }, [token, selectedLanguage])
 
   const handleDelete = (articleId) => {
     setArticleToDeleteId(articleId)
@@ -624,9 +626,11 @@ const ArticleList = () => {
       if (!response.ok) {
         const errorData = await response.json()
         throw new Error(errorData.message || currentLang.deleteError)
-      }
+      } // Mise à jour de la source de vérité localement après suppression
 
-      fetchArticles()
+      setAllArticles((prevArticles) =>
+        prevArticles.filter((a) => a.id !== articleToDeleteId)
+      )
       setMessage({ type: 'success', text: currentLang.deleteSuccess })
     } catch (err) {
       console.error("Erreur de l'API :", err)
@@ -648,18 +652,12 @@ const ArticleList = () => {
   const handleArticleUpdate = (message) => {
     setMessage(message)
     setIsEditModalOpen(false)
-    fetchArticles()
+    fetchArticles() // Re-fetch les articles après modification pour mettre à jour la liste
     setTimeout(() => setMessage(null), 3000)
-  }
-
-  useEffect(() => {
-    if (token) {
-      fetchArticles()
-    }
-  }, [token, selectedLanguage]) // Logique de pagination
+  } // Logique de pagination
 
   const indexOfLastArticle = currentPage * articlesPerPage
-  const indexOfFirstArticle = indexOfLastArticle - articlesPerPage
+  const indexOfFirstArticle = indexOfLastArticle - articlesPerPage // Pagine sur la liste FILTRÉE
   const articlesToDisplay = filteredArticles.slice(
     indexOfFirstArticle,
     indexOfLastArticle
@@ -689,8 +687,9 @@ const ArticleList = () => {
                     {message.text}       {' '}
         </div>
       )}
-      {/* Barre de recherche ajoutée ici */}
+      {/* NOUVEAU: BARRE DE RECHERCHE */}     {' '}
       <div className='mb-4'>
+               {' '}
         <input
           type='text'
           placeholder={currentLang.searchPlaceholder}
@@ -698,8 +697,9 @@ const ArticleList = () => {
           onChange={(e) => setSearchTerm(e.target.value)}
           className='w-full p-3 border border-gray-300 rounded-xl focus:ring-[#2c3159] focus:border-[#2c3159] transition-all duration-300'
         />
+             {' '}
       </div>
-      {/* Fin Barre de recherche */}     {' '}
+           {' '}
       <div className='overflow-x-auto'>
                {' '}
         <table className='min-w-full bg-white rounded-xl shadow-md overflow-hidden'>
@@ -786,23 +786,25 @@ const ArticleList = () => {
              {' '}
       </div>
             {/* Pagination */}     {' '}
-      <div className='flex justify-center items-center gap-2 mt-4'>
-               {' '}
-        {Array.from({ length: totalPages }, (_, i) => (
-          <button
-            key={i}
-            onClick={() => paginate(i + 1)}
-            className={`py-2 px-4 rounded-full font-bold ${
-              currentPage === i + 1
-                ? 'bg-[#2c3159] text-white'
-                : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
-            }`}
-          >
-                        {i + 1}         {' '}
-          </button>
-        ))}
-             {' '}
-      </div>
+      {totalPages > 1 && (
+        <div className='flex justify-center items-center gap-2 mt-4'>
+                   {' '}
+          {Array.from({ length: totalPages }, (_, i) => (
+            <button
+              key={i}
+              onClick={() => paginate(i + 1)}
+              className={`py-2 px-4 rounded-full font-bold ${
+                currentPage === i + 1
+                  ? 'bg-[#2c3159] text-white'
+                  : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+              }`}
+            >
+                            {i + 1}           {' '}
+            </button>
+          ))}
+                 {' '}
+        </div>
+      )}
            {' '}
       {isEditModalOpen && (
         <EditArticleModal
@@ -823,6 +825,8 @@ const ArticleList = () => {
     </div>
   )
 }
+
+// --- 4. COMPOSANT RACINE (App) ---
 
 const App = () => (
   <LanguageProvider>
