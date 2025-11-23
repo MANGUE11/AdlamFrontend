@@ -156,7 +156,7 @@ const ArticlePage = () => {
             className='text-3xl font-bold mb-8 text-gray-900'
             style={{ direction: textDirection }}
           >
-            {t('commentsTitle', 'Commentaires')} ({comments.length})
+            {t('commentsTitle', '𞤁𞤫𞤱𞤼𞤢𞤲𞤯𞤫')} ({comments.length})
           </h2>
           <CommentForm articleId={id} onCommentAdded={handleCommentAdded} />
           <CommentsList comments={comments} setComments={setComments} />

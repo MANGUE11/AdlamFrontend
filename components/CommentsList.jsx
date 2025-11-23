@@ -159,8 +159,7 @@ const CommentsList = ({ comments, setComments }) => {
       >
         <MessageCircle className='mx-auto mb-3' size={32} />{' '}
         <p className='text-lg'>
-          {t('none', 'Soyez le premier à commenter cet article !')} // Clé
-          traduite{' '}
+          {t('none', 'Soyez le premier à commenter cet article !')}{' '}
         </p>{' '}
       </div>
     )
