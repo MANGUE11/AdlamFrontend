@@ -44,7 +44,10 @@ const Header = () => {
           <div className='container mx-auto max-w-7xl px-4 flex flex-col md:flex-row justify-between items-center text-sm text-gray-600'>
             <div className='flex flex-col md:flex-row items-center gap-2 md:gap-4 mb-2 md:mb-0'>
               <span className='flex items-center gap-1'>
-                <i className='fa-solid fa-phone'></i> +224 123 456 789
+                <i className='fa-solid fa-phone'></i> +224624661174
+              </span>
+              <span className='flex items-center gap-1'>
+                <i className='fa-solid fa-phone'></i> +𞥒𞥒𞥔𞥖𞥒𞥔𞥖𞥖𞥑𞥑𞥗𞥔
               </span>
               <span className='flex items-center gap-1'>
                 <i className='fa-solid fa-location-dot'></i> 𞤍𞤢𞤤𞤢𞤦𞤢𞥄
