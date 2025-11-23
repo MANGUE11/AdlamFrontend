@@ -165,7 +165,7 @@ const UserList = () => {
     <div className='p-6 bg-white rounded-2xl shadow-lg'>
            {' '}
       <h2 className='text-2xl font-bold text-[#2c3159] mb-6'>
-                {currentLang.title || 'Liste des utilisateurs'}     {' '}
+                {currentLang.title || '𞤕𞤭𞤫𞤪𞤼𞤮𞤤 𞤸𞤵𞥅𞤼𞤢𞤪𞤢𞤴𞤩𞤫 ( 𞤼𞤢𞤱𞤼𞤵𞤩𞤫)'}     {' '}
       </h2>
            {' '}
       {message && (
