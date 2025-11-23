@@ -39,7 +39,7 @@
 /* Styles pour les écrans de moins de 480px (téléphones) */
 @media screen and (max-width: 480px) {
   .article-content img {
-    max-width: 90% !important; /* un peu plus petit que l'écran */
+    max-width: 50% !important; /* un peu plus petit que l'écran */
     /* moins d'espace autour */
     border-radius: 8px; /* légèrement plus petit */
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* moins prononcé */
