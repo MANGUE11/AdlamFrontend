@@ -36,6 +36,16 @@
   max-width: 600px !important;
 }
 
+/* Styles pour les écrans de moins de 480px (téléphones) */
+@media screen and (max-width: 480px) {
+  .article-content img {
+    max-width: 90% !important; /* un peu plus petit que l'écran */
+    margin: 1rem auto; /* moins d'espace autour */
+    border-radius: 8px; /* légèrement plus petit */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* moins prononcé */
+  }
+}
+
 .article-content
   :where(p, h1, h2, h3, h4, h5, h6, ul, ol, li, img, blockquote, pre, code) {
   all: revert;
