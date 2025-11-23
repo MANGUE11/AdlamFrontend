@@ -166,10 +166,7 @@ const AllArticlesPage = () => {
                        {' '}
             <input
               type='text'
-              placeholder={
-                articlesPageLang.searchPlaceholder ||
-                'Rechercher des articles...'
-              }
+              placeholder={articlesPageLang.searchPlaceholder || '𞤏𞤭𞤯𞤮𞤪𞤣𞤫'}
               value={searchTerm}
               onChange={handleSearchChange}
               className='w-full p-4 border border-gray-300 rounded-lg shadow-md focus:ring-2 focus:ring-[#2c3159] focus:border-transparent transition duration-200'

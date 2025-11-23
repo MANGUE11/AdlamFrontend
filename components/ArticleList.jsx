@@ -38,7 +38,7 @@ const translations = {
       updateSuccess: 'Article mis à jour avec succès.', // Nouveau message
       page: 'Page',
       // NOUVEAU: Texte pour la barre de recherche
-      searchPlaceholder: 'Rechercher par titre (Adlam ou Français)...',
+      searchPlaceholder: '𞤏𞤭𞤯𞤮𞤪𞤣𞤫',
     },
     createArticle: {
       title: 'Créer un nouvel article',
