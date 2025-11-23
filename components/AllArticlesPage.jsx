@@ -255,7 +255,7 @@ const AllArticlesPage = () => {
               disabled={currentPage === 1}
               className='bg-white text-[#2c3159] font-bold py-2 px-4 rounded-full shadow-md hover:bg-gray-100 transition duration-300 disabled:opacity-50 disabled:cursor-not-allowed'
             >
-                            Précédent            {' '}
+                            𞤒𞤭𞤤𞤼𞤮            {' '}
             </button>
                         {/* Numéros de page */}           {' '}
             {Array.from({ length: totalPages }, (_, i) => {
@@ -280,13 +280,13 @@ const AllArticlesPage = () => {
               disabled={currentPage === totalPages}
               className='bg-white text-[#2c3159] font-bold py-2 px-4 rounded-full shadow-md hover:bg-gray-100 transition duration-300 disabled:opacity-50 disabled:cursor-not-allowed'
             >
-                            Suivant            {' '}
+                            𞤔𞤮𞤳𞥆𞤫𞥅            {' '}
             </button>
                      {' '}
           </div>
                    {' '}
           <p className='text-center mt-4 text-sm text-gray-600'>
-                        Page {currentPage} sur {totalPages}         {' '}
+                        𞤖𞤫𞤤𞥆𞤮 {currentPage} sur {totalPages}         {' '}
           </p>
                  {' '}
         </div>
