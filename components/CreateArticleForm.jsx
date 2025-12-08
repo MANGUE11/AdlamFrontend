@@ -432,7 +432,7 @@ const CreateArticleForm = ({ article }) => {
 
         <div>
           <label className='block text-sm font-medium text-gray-700 mb-1'>
-            𞤐𞤢𞤼𞤢𞤤 𞤦𞤵𞥅𞤥𞤵𞤲𞥋𞤲𞤺𞤢𞤤
+            𞤐𞤢𞤼𞤢𞤤 𞤦𞤵𞥅𞤥𞤵𞤲𞥋𞤺𞤢𞤤
           </label>
           {article?.coverImageUrl && !coverImage && (
             <div className='mb-2'>

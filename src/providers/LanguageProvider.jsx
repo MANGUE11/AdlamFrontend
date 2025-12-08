@@ -535,7 +535,7 @@ const translations = {
 
     commentsList: {
       // Liste vide
-      none: '𞤅𞤮𞤳𞥆𞤢𞥄𞤣𞤮 𞤸𞤮𞤲𞥆𞤮 𞤢𞥄𞤥𞤵𞤲 𞤼𞤢𞥄𞤪𞤮𞤼𞤮𞤲 𞤲𞤵𞤤𞤢𞤤 𞤲𞤺𞤢𞤤!', // Sokkaaɗo honno aamun taaroton nulal ngal (Soyez le premier...)
+      none: '𞤏𞤮𞤲𞤫𞥅 𞤢𞤣𞤭𞥅𞤩𞤫 𞤥𞤢𞤲𞤼𞤵𞤺𞤮𞤤 𞤲𞤺𞤮𞤤 𞤳𞤵𞤯𞤮𞤤', // Sokkaaɗo honno aamun taaroton nulal ngal (Soyez le premier...)
 
       // Suppression Admin (CommentItem)
       confirmDelete: '𞤉𞤿𞤢𞤲 𞤮𞤲 𞤲𞤢𞤦𞤭 𞤼𞤵𞤤𞤤𞤭𞤣𞤫𞥅 𞤲𞤵𞤤𞤢𞤤 𞤲𞤺𞤢𞤤?', // Ecan on nabi tullide nulal ngal (Êtes-vous sûr de vouloir supprimer...)
@@ -610,8 +610,8 @@ const translations = {
       viewAllButton: '𞤚𞤭𞤲𞤵',
     },
     allArticlesPage: {
-      heroTitle: '𞤑𞤵𞤯𞤮𞤤 𞤥𞤢𞤱𞤯𞤫',
-      heroSubtitle: '𞤁𞤢𞤳𞤳𞤫𞤪𞤢𞤤𞤢 𞤫 𞤥𞤢𞤤𞤢𞤥 𞤲𞤮𞤲 𞤲𞤮𞤲 𞤳𞤮 𞤶𞤢𞤦𞤭',
+      heroTitle: ' 𞤑𞤵𞤯𞤭 𞤥𞤢𞤱𞤯𞤭',
+      heroSubtitle: '',
       backButton: '𞤑𞤮𞤤𞥆𞤮',
     },
     auth: {
@@ -631,9 +631,9 @@ const translations = {
       login: {
         signIn: '𞤅𞤮𞤯𞤢𞤲𞤣𞤫',
         emailLabel: '𞤐𞤭𞤤𞤼𞤭𞤧𞤵',
-        emailPlaceholder: '𞤉𞤥𞤢𞤭𞤤 𞤥𞤢𞤳𞥆𞤮',
+        emailPlaceholder: '𞤐𞤭𞤤𞤼𞤭𞤧𞤵 𞤥𞤮𞥅𞤯𞤮𞤲',
         passwordLabel: '𞤚𞤮𞤲𞤺𞤭𞤪𞤣𞤫',
-        passwordPlaceholder: '𞤃𞤮𞤼𞥆𞤢𞤳𞤢𞥄𞤣𞤭 𞤥𞤢𞤳𞥆𞤮',
+        passwordPlaceholder: '𞤚𞤮𞤲𞤺𞤭𞤪𞤣𞤫 𞤥𞤮𞥅𞤯𞤮𞤲',
         signInButton: '𞤅𞤮𞤯𞤮',
         loadingButton: '',
         noAccount: '𞤀𞤤𞤢𞥄 𞤬𞤭𞤲𞤣𞤫؟',
@@ -642,7 +642,7 @@ const translations = {
       },
     },
     userProfile: {
-      unauthorizedMessage: '𞤕𞤢𞥄𞤱𞤲𞤭 𞤫 𞤸𞤫𞤼𞥆𞤵𞤺𞤮𞤤.',
+      unauthorizedMessage: '𞤋𞤯𞤮𞤲 𞤱𞤢𞥄𞤱𞤭 𞤧𞤮𞤯𞤢𞥄𞤣𞤫 𞤯𞤮𞥅 𞤬𞤭𞥅 𞤴𞤭𞤴𞤵𞤺𞤮𞤤 𞤸𞤫𞤤𞥆𞤮 𞤲𞤺𞤮𞤲',
       dashboardTitle: '𞤖𞤢𞥄𞤼𞤭𞤥𞤫𞤪𞤫 𞤧𞤫𞤪𞤢𞥄𞤪𞤫 ',
       myInfo: '𞤅𞤭𞤬𞤢𞥄𞤶𞤭 𞤢𞤥 ',
       createArticle: '𞤅𞤭𞤲𞤷𞤵𞤺𞤮𞤤 𞤳𞤵𞤯𞤮𞤤',

@@ -226,8 +226,7 @@ const UserProfile = () => {
             {' '}
             <h1 className='text-2xl font-bold text-[#2c3159] mb-6'>
               {' '}
-              {currentLang.usersListTitle ||
-                'Liste des utilisateurs (Admin)'}{' '}
+              {currentLang.usersListTitle || ''}{' '}
             </h1>
             <UserList />{' '}
           </main>

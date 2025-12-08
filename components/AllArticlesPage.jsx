@@ -283,7 +283,7 @@ const AllArticlesPage = () => {
           </div>
                    {' '}
           <p className='text-center mt-4 text-sm text-gray-600'>
-                        𞤖𞤫𞤤𞥆𞤮 {currentPage} sur {totalPages}         {' '}
+                        𞤖𞤫𞤤𞥆𞤮 {currentPage} 𞤐𞤣𞤫𞤪 {totalPages}         {' '}
           </p>
                  {' '}
         </div>

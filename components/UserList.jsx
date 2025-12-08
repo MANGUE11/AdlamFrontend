@@ -165,7 +165,7 @@ const UserList = () => {
     <div className='p-6 bg-white rounded-2xl shadow-lg'>
            {' '}
       <h2 className='text-2xl font-bold text-[#2c3159] mb-6'>
-                {currentLang.title || '𞤕𞤭𞤫𞤪𞤼𞤮𞤤 𞤸𞤵𞥅𞤼𞤢𞤪𞤢𞤴𞤩𞤫 ( 𞤼𞤢𞤱𞤼𞤵𞤩𞤫)'}     {' '}
+                {currentLang.title || '𞤕𞤭𞤪𞤼𞤮𞤤 𞤸𞤵𞥅𞤼𞤢𞤪𞤢𞤴𞤩𞤫 ( 𞤼𞤢𞤱𞤼𞤵𞤩𞤫)'}     {' '}
       </h2>
            {' '}
       {message && (
@@ -190,19 +190,19 @@ const UserList = () => {
             <tr>
                            {' '}
               <th className='py-3 px-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider min-w-[100px]'>
-                                Nom              {' '}
+                                𞤋𞤲𞤣𞤫              {' '}
               </th>
                            {' '}
               <th className='py-3 px-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider min-w-[150px]'>
-                                Email              {' '}
+                                𞤐𞤭𞤤𞤼𞤭𞤧𞤵              {' '}
               </th>
                            {' '}
               <th className='py-3 px-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider min-w-[100px]'>
-                                Rôle              {' '}
+                                𞤘𞤮𞤤𞥆𞤢𞤤              {' '}
               </th>
                            {' '}
               <th className='py-3 px-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider min-w-[150px]'>
-                                Actions              {' '}
+                                𞤚𞤮𞤲𞥋𞤣𞤭𞤯𞤫              {' '}
               </th>
                          {' '}
             </tr>
@@ -245,7 +245,7 @@ const UserList = () => {
                     onClick={() => handleDelete(user.id)}
                     className='bg-red-500 text-white font-semibold py-1 px-3 rounded-full hover:bg-red-600 transition-all duration-300'
                   >
-                                        Supprimer                  {' '}
+                                        𞤃𞤮𞤲𞤼𞤵                  {' '}
                   </button>
                                  {' '}
                 </td>

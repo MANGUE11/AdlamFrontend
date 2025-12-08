@@ -27,7 +27,7 @@ const translations = {
     },
     articleList: {
       title: '𞤕𞤭𞤪𞤼𞤮 𞤳𞤵𞤯𞤭',
-      tableHeaders: ['𞤅𞤫𞤪𞤭𞤲𞤣𞤫', 'Auteur', 'Publié le', '𞤚𞤮𞤲𞥋𞤣𞤭𞤪𞤫'],
+      tableHeaders: ['𞤅𞤫𞤪𞤭𞤲𞤣𞤫', '𞤎𞤢𞤱𞤲𞤵𞤯𞤮', '𞤏𞤫𞤲𞤺𞤫𞥅 𞤳𞤵𞤯𞤮𞤤 𞤲𞤺𞤮𞤤', '𞤚𞤮𞤲𞥋𞤣𞤭𞤪𞤫'],
       loading: 'Chargement des articles...',
       noArticles: 'Aucun article trouvé.',
       editButton: '𞤏𞤀𞤴𞤤𞤵',
