@@ -85,6 +85,18 @@ const Header = () => {
                 >
                   <i className='fa-brands fa-youtube text-gray-700 hover:text-red-500'></i>
                 </a>
+                <a
+                  href='https://www.tiktok.com/@akweeyo?_r=1&_t=ZN-911Huh5AiPu'
+                  aria-label='TikTok'
+                >
+                  <i className='fa-brands fa-tiktok text-gray-700 hover:text-black'></i>
+                </a>
+                <a
+                  href='https://www.instagram.com/akweeyo?igsh=MXBoZDZ5cGZ6OW9uZw=='
+                  aria-label='Instagram'
+                >
+                  <i className='fa-brands fa-instagram text-gray-700 hover:text-pink-600'></i>
+                </a>
               </div>
             </div>
           </div>

@@ -45,6 +45,17 @@ const ContactForm = () => {
               >
                 <Instagram size={28} />
               </a>
+              <a
+                href='https://www.tiktok.com/@akweeyo?_r=1&_t=ZN-911Huh5AiPu'
+                target='_blank'
+                rel='noopener noreferrer'
+                className='text-gray-300 hover:text-white transition duration-300'
+              >
+                <i
+                  className='fa-brands fa-tiktok'
+                  style={{ fontSize: '28px' }} // Ajustement de la taille pour correspondre à size={28}
+                ></i>
+              </a>
             </div>
           </div>
 
