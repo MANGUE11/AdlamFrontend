@@ -12,6 +12,8 @@ import ContactForm from '../components/ContactForm'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import RegisterPage from '../pages/RegisterPage'
 import ConnexionPage from '../pages/ConnexionPage'
+import ResetPassword from '../pages/ResetPassword'
+import ForgotPassword from '../pages/ForgotPassword'
 import UserProfile from '../pages/UserProfile'
 import ArticlePage from '../components/ArticlePage'
 import AllArticlesPage from '../components/AllArticlesPage'
@@ -47,6 +49,11 @@ function App() {
               {/* Route pour la page d'inscription */}
               <Route path='/register' element={<RegisterPage />} />
               <Route path='/login' element={<ConnexionPage />} />
+              <Route path='/forgot-password' element={<ForgotPassword />} />
+              <Route
+                path='/reset-password/:token'
+                element={<ResetPassword />}
+              />
               {/* Route pour la page de profil. Le chemin "/profile" correspond au composant UserProfile */}
               <Route path='/profile' element={<UserProfile />} />
               {/* Nouvelle route pour un article unique */}

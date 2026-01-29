@@ -9,7 +9,7 @@ export const useAuth = () => {
 }
 
 // URL de votre API de connexion
-// const LOGIN_API_URL = 'http://localhost:3000/api/auth/login'
+// const LOGIN_API_URL = 'http://localhost:5000/api/auth/login'
 const LOGIN_API_URL =
   'https://adlambackend-production.up.railway.app/api/auth/login'
 
@@ -17,7 +17,7 @@ const LOGIN_API_URL =
 export const AuthProvider = ({ children }) => {
   // Initialise l'état à partir du localStorage pour la persistance
   const [isAuthenticated, setIsAuthenticated] = useState(
-    !!localStorage.getItem('token') // Convertit en booléen (true si le token existe)
+    !!localStorage.getItem('token'), // Convertit en booléen (true si le token existe)
   )
   const [user, setUser] = useState(() => {
     try {
@@ -26,7 +26,7 @@ export const AuthProvider = ({ children }) => {
     } catch (e) {
       console.error(
         'Erreur lors du parsing des données utilisateur depuis localStorage',
-        e
+        e,
       )
       return null
     }
@@ -65,7 +65,7 @@ export const AuthProvider = ({ children }) => {
         const errData = await response.json()
         throw new Error(
           errData.message ||
-            'Échec de la connexion. Veuillez vérifier vos informations.'
+            'Échec de la connexion. Veuillez vérifier vos informations.',
         )
       }
 
