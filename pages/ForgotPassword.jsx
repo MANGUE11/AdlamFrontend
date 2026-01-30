@@ -42,7 +42,7 @@ const ForgotPassword = () => {
       <div className='bg-white p-8 rounded-lg shadow-xl w-full max-w-lg'>
         <h2 className='text-3xl font-bold text-center mb-6 text-gray-800'>
           {/* Tu peux ajouter cette clé dans tes traductions : "Récupération" */}
-          Récupérer le mot de passe
+          𞤸𞤫𞤩𞤼𞤵𞤺𞤮𞤤 𞤼𞤮𞤲𞤺𞤭𞤪𞤣𞤫 𞤲𞤣𞤫𞤲
         </h2>
 
         {message ? (
@@ -52,13 +52,13 @@ const ForgotPassword = () => {
               to='/login'
               className='text-blue-600 hover:underline font-bold'
             >
-              Retour à la connexion
+              𞤒𞤭𞤤𞤼𞤢𞤺𞤮𞤤 𞤳𞤢 𞤯𞤫𞤪𞤮𞤤 𞤧𞤮𞤯𞤢𞤲𞤣𞤫
             </Link>
           </div>
         ) : (
           <form onSubmit={handleSubmit}>
             <p className='text-gray-600 mb-6 text-center'>
-              Entrez votre e-mail pour recevoir un lien de réinitialisation.
+              𞤏𞤢𞤯𞤫𞥅 𞤲𞤭𞤤𞤼𞤭𞥅𞤧𞤵 𞤥𞤮𞥅𞤯𞤮𞤲 𞤲𞤺𞤵𞤲 𞤬𞤭𞥅 𞤸𞤫𞤲𞤣𞤢𞤺𞤮𞤤 𞤶𞤮𞤤𞤳𞤵 𞤸𞤫𞥅𞤯𞤭𞤲𞤼𞤭𞤲𞤢𞤲𞤣𞤫
             </p>
 
             <div className='mb-6'>
@@ -98,7 +98,7 @@ const ForgotPassword = () => {
                 to='/login'
                 className='text-sm text-gray-600 hover:underline'
               >
-                Retour à la page de connexion
+                𞤒𞤭𞤤𞤼𞤢𞤺𞤮𞤤 𞤳𞤢 𞤯𞤫𞤪𞤮𞤤 𞤧𞤮𞤯𞤢𞤲𞤣𞤫
               </Link>
             </div>
           </form>
