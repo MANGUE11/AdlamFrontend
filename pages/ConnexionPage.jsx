@@ -84,7 +84,7 @@ const ConnexionPage = () => {
                 to='/forgot-password'
                 className='text-sm text-blue-600 hover:underline'
               >
-                Mot de passe oublié ?
+                𞤴𞤫𞤶𞤼𞤮𞤲𞤺𞤭𞤲𞤣𞤫 𞤲𞤣𞤫𞤲
               </Link>
             </div>
           </div>
